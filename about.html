@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrometheusPCB — About: why I'm building a desktop fab</title>
+<meta name="description" content="Aaron Wang on why he founded PrometheusPCB — closing the gap between how fast you can think and how slowly you can hold a finished board in your hand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --substrate:#0B181C;
+    --panel:#102329;
+    --panel-edge:#1C3942;
+    --copper:#C9803F;
+    --copper-bright:#E0A05C;
+    --ignition:#FF6A1A;
+    --ink:#ECE3D6;
+    --ink-dim:#7E939B;
+    --via:#2A4C56;
+    --max:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--substrate);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ignition);color:var(--substrate)}
+  :focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+
+  /* nav (matches site) */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(11,24,28,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--panel-edge)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.01em;font-size:18px;color:var(--ink)}
+  .brand .mark{width:22px;height:22px;flex:none}
+  .brand .pcb{color:var(--copper)}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-link{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.04em;transition:color .18s}
+  .nav-link:hover{color:var(--copper-bright)}
+  .nav-link.active{color:var(--copper)}
+  .nav-cta{font-family:"IBM Plex Mono",monospace;font-size:13px;border:1px solid var(--copper);color:var(--copper-bright);padding:8px 16px;border-radius:2px;transition:background .18s,color .18s}
+  .nav-cta:hover{background:var(--copper);color:var(--substrate)}
+  @media(max-width:560px){.nav-inner{height:auto;min-height:64px;flex-wrap:wrap;row-gap:12px;padding:12px 0}}
+
+  /* headings */
+  h1{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(2.4rem,5vw,3.9rem);line-height:1.03;letter-spacing:-.025em;margin:18px 0 0;max-width:17ch}
+  h1 .glow{color:var(--copper-bright)}
+  h2{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(1.7rem,3.2vw,2.4rem);letter-spacing:-.02em;line-height:1.08;margin:14px 0 0}
+
+  .lede{font-size:1.15rem;color:#C3CDD0;max-width:56ch;margin-top:22px}
+  .lede strong{color:var(--ink);font-weight:600}
+  .body{max-width:62ch;color:#C3CDD0;font-size:1.05rem}
+  .body p+p{margin-top:1.1rem}
+  .body strong{color:var(--ink);font-weight:600}
+
+  /* section scaffolding (matches site) */
+  section{padding:78px 0}
+  .hero-sec{padding:88px 0 56px}
+  .divider{border-top:1px solid var(--panel-edge)}
+  .sec-head{max-width:60ch;margin-bottom:34px}
+
+  /* founder fact strip */
+  .facts{margin-top:clamp(34px,5vw,52px);display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--panel-edge);border:1px solid var(--panel-edge);border-radius:4px;overflow:hidden}
+  @media(min-width:760px){.facts{grid-template-columns:repeat(4,1fr)}}
+  .fact{background:var(--substrate);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+  .fact .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-dim)}
+  .fact .v{font-family:"Space Grotesk",sans-serif;font-size:.98rem;font-weight:500;color:var(--ink);line-height:1.25}
+
+  /* pull-quote */
+  .quote{border-left:3px solid var(--copper);padding:6px 0 6px 28px;max-width:60ch}
+  .quote blockquote{font-family:"Space Grotesk",sans-serif;font-weight:500;font-size:clamp(1.3rem,2.7vw,1.95rem);line-height:1.24;letter-spacing:-.015em;color:var(--ink)}
+
+  /* cta + contact */
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:14px;padding:13px 22px;border-radius:2px;cursor:pointer;transition:background .18s,transform .05s;display:inline-block}
+  .btn-solid{background:var(--copper);color:var(--substrate);border:1px solid var(--copper)}
+  .btn-solid:hover{background:var(--copper-bright)}
+  .btn-ghost{background:transparent;color:var(--copper-bright);border:1px solid var(--copper)}
+  .btn-ghost:hover{background:var(--copper);color:var(--substrate)}
+  .btn:active{transform:translateY(1px)}
+  .contact{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-dim);margin-top:20px}
+  .contact a{color:var(--copper-bright)}
+  .contact a:hover{text-decoration:underline}
+
+  /* footer (matches site) */
+  footer{padding:40px 0 56px;color:var(--ink-dim);font-size:13px;border-top:1px solid var(--panel-edge)}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .foot-inner .mono{color:var(--ink-dim)}
+  .foot-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot-link{color:var(--ink-dim);transition:color .18s}
+  .foot-link:hover{color:var(--copper-bright)}
+  .brand-sm{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;color:var(--ink)}
+  .brand-sm .pcb{color:var(--copper)}
+
+  /* reveals */
+  @media (prefers-reduced-motion: no-preference){
+    .js .reveal{opacity:0;transform:translateY(16px)}
+    .js .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+  }
+  .reveal{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <svg class="mark" viewBox="0 0 24 24" fill="none">
+        <path d="M3 12h5l2-4 3 8 2-4h6" stroke="#C9803F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="3" cy="12" r="1.6" fill="#C9803F"/><circle cx="21" cy="8" r="1.6" fill="#FF6A1A"/>
+      </svg>
+      Prometheus<span class="pcb">PCB</span>
+    </a>
+    <div class="nav-right">
+      <a href="/technology" class="nav-link">Technology</a>
+      <a href="/about" class="nav-link active">About</a>
+      <a href="/#waitlist" class="nav-cta">Join the beta</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero-sec">
+    <div class="wrap">
+      <span class="eyebrow reveal">About</span>
+      <h1 class="reveal">Why I'm building a fab small enough to sit on your <span class="glow">desk</span>.</h1>
+      <p class="lede reveal">I'm Aaron Wang — an electrical and mechanical engineer at Texas Tech, and the founder of PrometheusPCB. I started this because the slowest part of building hardware isn't the thinking. It's the waiting.</p>
+
+      <div class="facts reveal">
+        <div class="fact"><span class="k">Discipline</span><span class="v">EE + ME · Texas Tech</span></div>
+        <div class="fact"><span class="k">Shipped before</span><span class="v">Production firmware · Stalker Radar</span></div>
+        <div class="fact"><span class="k">Backed by</span><span class="v">TTU JumpStart + NSF I-Corps</span></div>
+        <div class="fact"><span class="k">Role</span><span class="v">Solo founder (for now)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS -->
+  <section class="divider">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Why this</span>
+        <h2>Software ships in seconds. Hardware ships next week.</h2>
+      </div>
+      <div class="body reveal">
+        <p>I've written production firmware that went into shipping radar hardware, so I've lived both loops. Software is tight: change it, build it, see it, fix it — minutes. Hardware isn't. You send a board to a fab, wait out the week, find the one mistake, and start the clock over.</p>
+        <p>That gap — between how fast you can think and how slowly you can hold the result in your hand — is the thing I want to close. PrometheusPCB is my answer to it: pull fabrication onto the bench, so the wait stops being the bottleneck and your ideas start being the bottleneck again.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section class="divider">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Why me</span>
+        <h2>I build things that have to physically work — and I finish them.</h2>
+      </div>
+      <div class="body reveal">
+        <p>My training is split on purpose. Electrical <em>and</em> mechanical engineering, because a machine like this lives right at the seam between the two — precise motion, controlled materials, real electronics, all in one box.</p>
+        <p>Before this I shipped production firmware at a radar company. On my own, I've launched live products that people actually use and validated a consumer startup with real customers in the field. The throughline is simple: I'd rather build the real thing than talk about it, and I finish what I start. A desktop ceramic fab is a hard, physical, defensible problem — which is exactly why I picked it over something easier.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="divider">
+    <div class="wrap">
+      <figure class="quote reveal">
+        <blockquote>I want to build something physically real and hard to copy — not the next thin layer on top of someone else's work.</blockquote>
+      </figure>
+    </div>
+  </section>
+
+  <!-- WHY NOW -->
+  <section class="divider">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Why now</span>
+        <h2>The pieces finally line up.</h2>
+      </div>
+      <div class="body reveal">
+        <p>Low-temperature co-fired ceramic and direct ink writing are both mature enough to build a real machine around — the materials science isn't the open question anymore, the machine is. Meanwhile the only tools doing true multi-layer additive electronics today are six-figure closed boxes, and everyone else is still mailing designs to a fab. There's a gap exactly where a desktop, open machine should be.</p>
+        <p>Texas Tech's Innovation Hub and an NSF I-Corps grant gave me the room to start chasing that gap now, instead of someday. <a href="/technology" style="color:var(--copper-bright)">The technical brief</a> lays out the architecture and the one materials problem the whole thing turns on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="divider">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What's next</span>
+        <h2>Early, and looking for the right people.</h2>
+      </div>
+      <div class="body reveal">
+        <p>PrometheusPCB is pre-prototype and moving fast. I'm building toward the first machine, talking to the hardware teams and labs who'd use it, and looking for a co-founder on the materials side — someone who reads the hard problem and gets excited instead of nervous.</p>
+        <p>If that's you, or if you just want a ceramic fab on your bench someday, let's talk.</p>
+      </div>
+      <div class="cta-row reveal">
+        <a class="btn btn-solid" href="/#waitlist">Join the beta</a>
+        <a class="btn btn-ghost" href="/technology">Read the technical brief</a>
+      </div>
+      <p class="contact reveal">Co-founder inquiries → <a href="mailto:AaronWang@prometheuspcb.com?subject=Co-founder%20inquiry%20%E2%80%94%20PrometheusPCB">AaronWang@prometheuspcb.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand-sm">Prometheus<span class="pcb">PCB</span></div>
+    <div class="foot-right">
+      <a href="/technology" class="foot-link">Technology</a>
+      <a href="/about" class="foot-link">About</a>
+      <span class="mono">Desktop additive PCB fabrication · est. 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if(reduce || !('IntersectionObserver' in window)){
+      els.forEach(function(el){el.classList.add('in');});
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{rootMargin:'0px 0px -8% 0px', threshold:0.1});
+    els.forEach(function(el){io.observe(el);});
+  })();
+</script>
+</body>
+</html>
