@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrometheusPCB — Technical Brief: LTCC + direct ink writing</title>
-<meta name="description" content="The engineering thesis behind PrometheusPCB: why low-temperature co-fired ceramic, why direct ink writing, and the co-firing shrinkage problem the architecture turns on.">
+<title>PrometheusPCB — Technical Brief: LTCC, direct ink writing & embedded passives</title>
+<meta name="description" content="The engineering thesis behind PrometheusPCB: why low-temperature co-fired ceramic, why direct ink writing, how the same process prints resistors, capacitors and inductors in-layer, and the co-firing shrinkage problem the architecture turns on.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -103,6 +103,12 @@
   .panel-card h3{font-size:1.1rem;margin-bottom:6px}
   .panel-card p{font-size:.92rem;color:#AEBCC0;margin-top:6px}
 
+  /* ---- trio (printed R / C / L) ---- */
+  .trio{margin-top:clamp(28px,4vw,44px);display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:680px){.trio{grid-template-columns:repeat(3,1fr)}}
+  .trio .panel-tag{color:var(--copper)}
+  .trio .panel-card svg{height:88px}
+
   /* ---- the hard part — ignition accent ---- */
   .hot-sec .eyebrow{color:var(--ignition)}
   .callout{margin-top:clamp(28px,4vw,44px);border:1px solid var(--panel-edge);border-left:3px solid var(--ignition);background:var(--panel);border-radius:4px;padding:22px 26px;max-width:64ch}
@@ -182,7 +188,7 @@
     <div class="wrap">
       <span class="eyebrow reveal">The engineering thesis</span>
       <h1 class="reveal">We don't print plastic. We print and <span class="glow">fire ceramic</span>.</h1>
-      <p class="lede reveal">The machine on the homepage runs on one technical bet: low-temperature co-fired ceramic, laid down as paste and fired on your bench. This page is the reasoning behind it — the material, the machine architecture, and the single problem the whole thing turns on.</p>
+      <p class="lede reveal">The machine on the homepage runs on one technical bet: low-temperature co-fired ceramic, laid down as paste and fired on your bench. This page is the reasoning behind it — the material, the machine architecture, why the same process prints the passives in, and the single problem the whole thing turns on.</p>
       <p class="brief-note reveal">An engineering brief for technical reviewers — reasoning and figures, not a finished spec.</p>
 
       <!-- FIG 01 — firing window (signature) -->
@@ -341,6 +347,61 @@
     </div>
   </section>
 
+  <!-- §03.5 EMBEDDED PASSIVES -->
+  <section class="divider">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Embedded passives</span>
+        <h2>The same nozzle that prints traces prints the passives.</h2>
+      </div>
+      <div class="body reveal">
+        <p>This is the part that makes ceramic worth the trouble. Because direct ink writing already places more than one paste in a build, a resistor is a stripe of resistive paste between two vias; a capacitor is an electrode / dielectric / electrode stack; an inductor is a coil of the same conductor. All of them are formed <strong>inside the layers</strong>, in the same pass that lays the wiring — the headline capability LTCC has had in production for decades, pulled onto the bench.</p>
+        <p>That matters because passives dominate a bill of materials. Resistors and capacitors are routinely 70–90% of the part count on a real board. Print those in and the machine stops being a wiring printer and starts being a <strong>functional-electronics printer</strong> — you place only the active silicon.</p>
+      </div>
+
+      <div class="trio reveal">
+        <figure class="panel-card">
+          <div class="panel-tag"><span>Printed resistor</span></div>
+          <svg viewBox="0 0 200 120" role="img" aria-label="A printed resistor: a stripe of resistive paste in a zigzag between two conductor pads.">
+            <rect x="24" y="70" width="26" height="14" rx="2" fill="#C9803F"/>
+            <rect x="150" y="70" width="26" height="14" rx="2" fill="#C9803F"/>
+            <path d="M50 77 h10 l7 -16 12 32 12 -32 12 32 12 -32 7 16 h10" fill="none" stroke="#E0A05C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Resistive paste, in-layer</h3>
+          <p>A length of carbon- or metal-oxide-loaded paste. Its resistance is set by geometry — width, length, thickness — so the CAD sets the value.</p>
+        </figure>
+        <figure class="panel-card">
+          <div class="panel-tag"><span>Printed capacitor</span></div>
+          <svg viewBox="0 0 200 120" role="img" aria-label="A printed capacitor: two conductor plates separated by a high-k dielectric layer.">
+            <rect x="55" y="40" width="90" height="9" rx="2" fill="#E0A05C"/>
+            <rect x="55" y="72" width="90" height="9" rx="2" fill="#E0A05C"/>
+            <rect x="55" y="52" width="90" height="17" fill="#2A4C56" opacity="0.7"/>
+            <line x1="100" y1="30" x2="100" y2="40" stroke="#C9803F" stroke-width="3"/>
+            <line x1="100" y1="81" x2="100" y2="92" stroke="#C9803F" stroke-width="3"/>
+          </svg>
+          <h3>Electrode · dielectric · electrode</h3>
+          <p>Two conductor plates around a high-k dielectric paste. Capacitance follows plate area and dielectric thickness.</p>
+        </figure>
+        <figure class="panel-card">
+          <div class="panel-tag"><span>Printed inductor</span></div>
+          <svg viewBox="0 0 200 120" role="img" aria-label="A printed inductor: a planar spiral of conductor paste.">
+            <path d="M100 60 a6 6 0 0 1 12 0 a12 12 0 0 1 -24 0 a18 18 0 0 1 36 0 a24 24 0 0 1 -48 0" fill="none" stroke="#E0A05C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="76" y1="60" x2="60" y2="60" stroke="#C9803F" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="100" cy="60" r="3" fill="#C9803F"/>
+          </svg>
+          <h3>Planar spiral coil</h3>
+          <p>A spiral of the same conductor paste. Low inductance versus a wound part, but exactly what RF and some power rails need.</p>
+        </figure>
+      </div>
+      <p class="eyebrow cap reveal">FIG_025 · the three passive primitives · copper = conductor, teal = dielectric</p>
+
+      <aside class="callout reveal" style="border-left-color:var(--copper)">
+        <p class="tag" style="color:var(--copper)">The honest caveat</p>
+        <p>Printed passives start loose. A commercial chip resistor ships at 1% or better; a printed one lands roughly <strong>10–20% off</strong> until it's laser-trimmed or closed-loop corrected, and a printed capacitor holds far less capacitance per area than an MLCC. So the first target isn't every part — it's the long tail of loose-tolerance pull-ups, decoupling, and terminations that make up most of the count. Tight-tolerance and high-value parts, and every active device, stay on the placement list — dropped onto <strong>standard IPC-7351 footprints</strong> the machine prints for you.</p>
+      </aside>
+    </div>
+  </section>
+
   <!-- §04 THE HARD PART -->
   <section class="divider hot-sec">
     <div class="wrap">
@@ -379,7 +440,7 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Where we fit</span>
-        <h2>Price, openness, and a real ceramic substrate.</h2>
+        <h2>Ceramic, open, and the passives printed in.</h2>
       </div>
       <div class="compare">
         <div class="col reveal">
@@ -398,7 +459,7 @@
           <span class="who">PrometheusPCB</span>
           <h3>A ceramic loop on your desk</h3>
           <div class="metric">hours · open</div>
-          <p>A ceramic iteration loop priced for a team, not a department — on an open architecture you can build on instead of a sealed box.</p>
+          <p>A ceramic iteration loop priced for a team, not a department — passives printed in, not placed — on an open architecture you can build on instead of a sealed box.</p>
         </div>
       </div>
     </div>
@@ -430,7 +491,7 @@
     <div class="foot-right">
       <a href="/technology" class="foot-link">Technology</a>
       <a href="/about" class="foot-link">About</a>
-      <span class="mono">Desktop additive PCB fabrication · est. 2026</span>
+      <span class="mono">Desktop additive electronics fabrication · est. 2026</span>
     </div>
   </div>
 </footer>

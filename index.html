@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrometheusPCB — Desktop additive PCB fabrication</title>
+<title>PrometheusPCB — Desktop additive electronics fabrication</title>
+<meta name="description" content="A desktop machine that prints functional multi-layer boards with the resistors, capacitors, and inductors formed right in the ceramic layers — so most of your BOM is fabbed, not placed, and you iterate in-house in hours.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -144,6 +145,17 @@
   .card h3{font-family:"Space Grotesk",sans-serif;font-weight:500;font-size:1.18rem;letter-spacing:-.01em;margin:14px 0 10px}
   .card p{font-size:.94rem;color:#AEBCC0}
 
+  /* ---- the leap (printed passives) ---- */
+  .leap-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+  .leap-list{list-style:none;margin:22px 0 0;padding:0}
+  .leap-list li{position:relative;padding:0 0 0 26px;margin-bottom:15px;font-size:1.02rem;color:#C3CDD0}
+  .leap-list li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;background:var(--copper)}
+  .leap-list li strong{color:var(--ink);font-weight:600}
+  .xsec{border:1px solid var(--panel-edge);border-radius:4px;background:var(--panel);padding:22px}
+  .xsec svg{width:100%;height:auto;display:block}
+  .xsec figcaption{margin-top:14px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;color:var(--ink-dim);text-transform:uppercase;line-height:1.5}
+  @media(max-width:820px){.leap-grid{grid-template-columns:1fr;gap:32px}}
+
   /* ---- closing cta ---- */
   .closing{text-align:center;border-top:1px solid var(--panel-edge);border-bottom:1px solid var(--panel-edge)}
   .closing h2{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-.025em;margin:16px auto 22px;max-width:18ch;line-height:1.05}
@@ -192,9 +204,9 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Desktop additive PCB fabrication</span>
-      <h1>Working boards, fabbed at your desk in <span class="glow">hours</span>.</h1>
-      <p class="lede">PrometheusPCB is a desktop machine that additively prints functional, multi-layer circuit boards — so you <strong>iterate in-house at the speed of software</strong>, instead of mailing designs to a fab and waiting out the week.</p>
+      <span class="eyebrow">Desktop additive electronics fabrication</span>
+      <h1>Working boards — with the passives printed <span class="glow">in</span>.</h1>
+      <p class="lede">PrometheusPCB is a desktop machine that additively prints functional, multi-layer boards <strong>with the resistors, capacitors, and inductors formed right in the layers</strong> — so most of your BOM is fabbed, not placed, and you iterate in-house in hours instead of mailing designs to a fab.</p>
 
       <div class="capture" id="form-hero">
         <input type="email" placeholder="you@lab.com" aria-label="Email address" required>
@@ -222,13 +234,27 @@
           <circle cx="320" cy="300" r="4.5"/><circle cx="340" cy="90" r="4.5"/>
           <circle cx="180" cy="300" r="4.5"/>
         </g>
+        <!-- embedded passives, printed into the board (not placed) -->
+        <g stroke="#E0A05C" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+          <!-- printed resistor: resistive-paste zigzag -->
+          <path d="M80 200 h10 l5 -7 8 14 8 -14 8 14 5 -7 h10"/>
+          <!-- printed capacitor: two electrode plates around dielectric -->
+          <g>
+            <line x1="150" y1="192" x2="150" y2="212"/>
+            <line x1="158" y1="192" x2="158" y2="212"/>
+            <line x1="140" y1="202" x2="150" y2="202"/>
+            <line x1="158" y1="202" x2="168" y2="202"/>
+          </g>
+          <!-- printed inductor: spiral coil -->
+          <path d="M240 200 a5 5 0 1 1 8 0 a8 8 0 1 1 -13 0 a11 11 0 1 1 18 0"/>
+        </g>
         <!-- the one heated trace: Prometheus' fire routed across the board -->
         <path class="filament" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
           d="M20 240 H110 V180 H210 V250 H300 V120 H380"/>
         <circle class="via-live" cx="210" cy="250" r="5.5" fill="#FF6A1A"/>
         <circle class="via-live" cx="300" cy="120" r="5.5" fill="#FF6A1A"/>
       </svg>
-      <span class="board-tag mono">REV_A · 4-LAYER · 0.8mm</span>
+      <span class="board-tag mono">REV_A · 4-LAYER · EMBEDDED R·L·C</span>
     </div>
   </div>
 </section>
@@ -243,6 +269,77 @@
     <p style="max-width:62ch;color:#C3CDD0;font-size:1.05rem">
       Software engineers ship a change and see it in seconds. Hardware engineers ship a board to a fab and see it next week — then find the one mistake and start the clock over. Every revision is a multi-day round trip. PrometheusPCB collapses that loop to the length of a coffee break, so the bottleneck stops being logistics and goes back to being your ideas.
     </p>
+  </div>
+</section>
+
+<!-- THE LEAP: PRINTED PASSIVES -->
+<section class="divider">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The leap</span>
+      <h2>Don't just print the board. Print the parts into it.</h2>
+    </div>
+    <div class="leap-grid">
+      <div>
+        <p style="color:#C3CDD0;font-size:1.05rem;max-width:52ch">
+          Resistors and capacitors are the majority of the components on a typical board — often 70–90% of the part count. A desktop machine that only prints copper still leaves you hand-placing all of them. Co-fired ceramic doesn't: the same process that lays down traces can form <strong style="color:var(--ink)">resistors, capacitors, and inductors directly inside the layers</strong>.
+        </p>
+        <ul class="leap-list">
+          <li><strong>Passives print in.</strong> R, L, and C are formed in-layer as the board is built — the bulk of your BOM is fabbed, not placed.</li>
+          <li><strong>You place only the silicon.</strong> MCUs, ICs, connectors, and crystals land on standard IPC-7351 footprints the machine lays down for you.</li>
+          <li><strong>Fewer parts, fewer joints.</strong> Delete the long tail of discrete passives and you delete most of the placement, soldering, and rework a revision costs.</li>
+        </ul>
+      </div>
+      <figure class="xsec" aria-label="Cross-section of a co-fired ceramic board. Ceramic dielectric layers hold a printed resistor, a printed capacitor, and a printed inductor formed in-layer. On the top surface sits a silicon IC you place yourself on printed footprint pads.">
+        <svg viewBox="0 0 480 262" role="img" xmlns="http://www.w3.org/2000/svg">
+          <!-- placed silicon IC on top surface -->
+          <rect x="298" y="70" width="120" height="28" rx="2" fill="#0C181C" stroke="#ECE3D6" stroke-width="1.6"/>
+          <text x="358" y="88" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#ECE3D6">IC</text>
+          <rect x="304" y="98" width="16" height="6" fill="#C9803F"/>
+          <rect x="396" y="98" width="16" height="6" fill="#C9803F"/>
+          <text x="358" y="58" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#7E939B">you place · the silicon</text>
+
+          <!-- ceramic layer stack -->
+          <g stroke="#1C3942" stroke-width="1.2">
+            <rect x="30" y="104" width="420" height="30" fill="#15272d"/>
+            <rect x="30" y="134" width="420" height="30" fill="#102329"/>
+            <rect x="30" y="164" width="420" height="30" fill="#15272d"/>
+            <rect x="30" y="194" width="420" height="30" fill="#102329"/>
+          </g>
+          <rect x="30" y="224" width="420" height="12" fill="#0A1418" stroke="#1C3942" stroke-width="1.2"/>
+
+          <!-- surface copper traces -->
+          <g stroke="#C9803F" stroke-width="2.4" stroke-linecap="round">
+            <line x1="40" y1="104" x2="150" y2="104"/>
+            <line x1="180" y1="104" x2="250" y2="104"/>
+            <line x1="300" y1="104" x2="412" y2="104"/>
+          </g>
+
+          <!-- printed resistor: resistive-paste zigzag in layer 1 -->
+          <g stroke="#E0A05C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="70" y1="104" x2="70" y2="115"/>
+            <path d="M70 115 h6 l5 -8 8 16 8 -16 8 16 8 -16 8 16 5 -8 h6"/>
+            <line x1="140" y1="115" x2="140" y2="104"/>
+          </g>
+          <text x="105" y="129" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#7E939B">printed R</text>
+
+          <!-- printed capacitor: two electrode plates around dielectric, layer 2 -->
+          <g stroke="#E0A05C" stroke-width="2.4" stroke-linecap="round">
+            <line x1="185" y1="142" x2="245" y2="142"/>
+            <line x1="185" y1="152" x2="245" y2="152"/>
+          </g>
+          <line x1="215" y1="134" x2="215" y2="142" stroke="#C9803F" stroke-width="2"/>
+          <line x1="215" y1="152" x2="215" y2="160" stroke="#C9803F" stroke-width="2"/>
+          <text x="215" y="182" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#7E939B">printed C</text>
+
+          <!-- printed inductor: planar spiral in section, layer 3 -->
+          <path d="M300 179 a6 6 0 1 1 12 0 a12 12 0 1 1 -24 0 a18 18 0 1 1 36 0"
+                fill="none" stroke="#E0A05C" stroke-width="2" stroke-linecap="round"/>
+          <text x="384" y="182" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#7E939B">printed L</text>
+        </svg>
+        <figcaption>FIG · one build, everything in it — grey = ceramic dielectric · copper = printed conductor &amp; passive · outline = the silicon you place</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -270,7 +367,7 @@
         <span class="who">PrometheusPCB</span>
         <h3>Built for the loop</h3>
         <div class="metric">hours</div>
-        <p>A desktop machine priced for a team, not a department. Functional multi-layer boards between morning and afternoon, on the same bench you design at.</p>
+        <p>A desktop machine priced for a team, not a department. Functional multi-layer boards — passives printed in — between morning and afternoon, on the same bench you design at.</p>
       </div>
     </div>
   </div>
@@ -287,7 +384,7 @@
       <div class="card">
         <span class="n">01</span>
         <h3>Functional, not decorative</h3>
-        <p>Conductive copper traces and multi-layer routing that carry real signals — boards you actually test, not mockups.</p>
+        <p>Copper traces, multi-layer routing, and embedded R, L, and C that carry real signals — boards you actually test, not mockups.</p>
       </div>
       <div class="card">
         <span class="n">02</span>
@@ -297,7 +394,7 @@
       <div class="card">
         <span class="n">03</span>
         <h3>Iterate, then iterate again</h3>
-        <p>Spin a revision, print it, test it, repeat — several times in a day instead of several times a month.</p>
+        <p>Spin a revision, print it — passives and all — test it, repeat. Several times in a day instead of several times a month.</p>
       </div>
     </div>
   </div>
@@ -323,7 +420,7 @@
     <div class="foot-right">
       <a href="/technology" class="foot-link">Technology</a>
       <a href="/about" class="foot-link">About</a>
-      <span class="mono">Desktop additive PCB fabrication · est. 2026</span>
+      <span class="mono">Desktop additive electronics fabrication · est. 2026</span>
     </div>
   </div>
 </footer>
