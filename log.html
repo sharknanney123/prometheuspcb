@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrometheusPCB — Build log</title>
+<meta name="description" content="Building a desktop ceramic fab in the open — every milestone, decision, research note, and dead end on the way there.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --substrate:#0B181C;
+    --panel:#102329;
+    --panel-edge:#1C3942;
+    --copper:#C9803F;
+    --copper-bright:#E0A05C;
+    --ignition:#FF6A1A;
+    --ink:#ECE3D6;
+    --ink-dim:#7E939B;
+    --via:#2A4C56;
+    --max:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--substrate);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ignition);color:var(--substrate)}
+  :focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+
+  /* nav (matches site) */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(11,24,28,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--panel-edge)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.01em;font-size:18px;color:var(--ink)}
+  .brand .mark{width:22px;height:22px;flex:none}
+  .brand .pcb{color:var(--copper)}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-link{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.04em;transition:color .18s}
+  .nav-link:hover{color:var(--copper-bright)}
+  .nav-link.active{color:var(--copper)}
+  .nav-cta{font-family:"IBM Plex Mono",monospace;font-size:13px;border:1px solid var(--copper);color:var(--copper-bright);padding:8px 16px;border-radius:2px;transition:background .18s,color .18s}
+  .nav-cta:hover{background:var(--copper);color:var(--substrate)}
+  @media(max-width:560px){.nav-inner{height:auto;min-height:64px;flex-wrap:wrap;row-gap:12px;padding:12px 0}}
+
+  /* headings */
+  h1{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(2.4rem,5vw,3.9rem);line-height:1.03;letter-spacing:-.025em;margin:18px 0 0;max-width:16ch}
+  h1 .glow{color:var(--copper-bright)}
+  .lede{font-size:1.15rem;color:#C3CDD0;max-width:54ch;margin-top:22px}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  /* layout */
+  section{padding:78px 0}
+  .hero-sec{padding:88px 0 40px}
+  .divider{border-top:1px solid var(--panel-edge)}
+
+  /* meta line + filters */
+  .log-meta{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-dim);letter-spacing:.04em;margin-top:26px}
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .filter{
+    font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.03em;
+    color:var(--ink-dim);background:transparent;border:1px solid var(--panel-edge);
+    padding:8px 14px;border-radius:2px;cursor:pointer;transition:border-color .18s,color .18s,background .18s;
+  }
+  .filter:hover{color:var(--ink);border-color:var(--via)}
+  .filter.active{color:var(--substrate);background:var(--copper);border-color:var(--copper);font-weight:500}
+  .filter .count{opacity:.7;margin-left:6px}
+
+  /* timeline */
+  .timeline{position:relative;margin-top:8px;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:var(--panel-edge)}
+  .entry{position:relative;padding:0 0 40px 0}
+  .entry::before{
+    content:"";position:absolute;left:-33px;top:4px;width:14px;height:14px;border-radius:50%;
+    background:var(--substrate);border:2px solid var(--accent,var(--copper));z-index:1;
+  }
+  .entry:last-child{padding-bottom:8px}
+
+  .entry-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+  .entry-date{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-dim);letter-spacing:.05em}
+  .entry-tag{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;
+    color:var(--accent,var(--copper));border:1px solid var(--accent,var(--copper));
+    padding:3px 9px;border-radius:2px;line-height:1;
+  }
+  .entry-title{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;color:var(--ink);line-height:1.18}
+  .entry-body{max-width:64ch;color:#C3CDD0;font-size:1.02rem;margin-top:9px}
+  .entry-body p+p{margin-top:.85rem}
+  .entry-body strong{color:var(--ink);font-weight:600}
+  .entry-body a{color:var(--copper-bright);text-decoration:underline;text-underline-offset:2px}
+  .entry-body ul{margin:.6rem 0 0 1.1rem}
+  .entry-body li{margin-bottom:.3rem}
+  .entry-link{display:inline-block;margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--copper-bright)}
+  .entry-link:hover{text-decoration:underline;text-underline-offset:2px}
+
+  /* type accents */
+  .t-milestone{--accent:#FF6A1A}
+  .t-update{--accent:#C9803F}
+  .t-research{--accent:#5AA0AE}
+  .t-decision{--accent:#C9A24F}
+
+  .empty{color:var(--ink-dim);font-family:"IBM Plex Mono",monospace;font-size:13px;padding:8px 0 20px}
+
+  /* footer (matches site) */
+  footer{padding:40px 0 56px;color:var(--ink-dim);font-size:13px;border-top:1px solid var(--panel-edge)}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .foot-inner .mono{color:var(--ink-dim)}
+  .foot-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot-link{color:var(--ink-dim);transition:color .18s}
+  .foot-link:hover{color:var(--copper-bright)}
+  .brand-sm{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;color:var(--ink)}
+  .brand-sm .pcb{color:var(--copper)}
+
+  @media (prefers-reduced-motion: no-preference){
+    .js .entry{opacity:0;transform:translateY(14px);animation:rise .5s ease forwards}
+  }
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <svg class="mark" viewBox="0 0 24 24" fill="none">
+        <path d="M3 12h5l2-4 3 8 2-4h6" stroke="#C9803F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="3" cy="12" r="1.6" fill="#C9803F"/><circle cx="21" cy="8" r="1.6" fill="#FF6A1A"/>
+      </svg>
+      Prometheus<span class="pcb">PCB</span>
+    </a>
+    <div class="nav-right">
+      <a href="/technology" class="nav-link">Technology</a>
+      <a href="/log" class="nav-link active">Log</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="/#waitlist" class="nav-cta">Join the beta</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero-sec">
+    <div class="wrap">
+      <span class="eyebrow">Build log</span>
+      <h1>Building in the <span class="glow">open</span>.</h1>
+      <p class="lede">Every milestone, decision, research note, and dead end on the way to a desktop ceramic fab. I'd rather show the work than polish a highlight reel — so this is the running record, newest first.</p>
+      <p class="log-meta" id="logMeta">&nbsp;</p>
+      <div class="filters" id="filters"></div>
+    </div>
+  </section>
+
+  <section class="divider" style="padding-top:44px">
+    <div class="wrap">
+      <div class="timeline" id="timeline"></div>
+      <p class="empty" id="empty" style="display:none">No entries under this filter yet.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand-sm">Prometheus<span class="pcb">PCB</span></div>
+    <div class="foot-right">
+      <a href="/technology" class="foot-link">Technology</a>
+      <a href="/log" class="foot-link">Log</a>
+      <a href="/about" class="foot-link">About</a>
+      <span class="mono">Desktop additive electronics fabrication · est. 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================================
+   HOW TO ADD AN ENTRY
+   ----------------------------------------------------------------------------
+   Add one object to the TOP of the ENTRIES array below. Order in the array
+   doesn't matter — entries are sorted by date automatically, newest first.
+
+   {
+     date:  '2026-08-01',              // YYYY-MM-DD
+     type:  'milestone',               // 'milestone' | 'update' | 'research' | 'decision'
+     title: 'Short headline',
+     body:  `What happened, in your own words. Plain text is fine.
+
+             Leave a blank line to start a new paragraph. You can also use basic
+             HTML here — <strong>bold</strong>, <a href="...">links</a>, or a list:
+             <ul><li>point one</li><li>point two</li></ul>`,
+     link:  { href:'https://...', label:'Read the paper' }   // OPTIONAL — delete if unused
+   },
+
+   Types & their color: milestone = orange (big moments), update = copper
+   (weekly progress), research = teal (findings/experiments), decision = gold
+   (choices + the reasoning behind them).
+
+   The seed entries below are your real ones — edit the dates/wording to match,
+   and add new ones on top as you go.
+   ========================================================================== */
+var ENTRIES = [
+
+  {
+    date: '2026-07-19',
+    type: 'update',
+    title: 'Repositioned the site around printed passives',
+    body: `Reframed the whole site: the machine isn't just a PCB printer — it forms
+           resistors, capacitors, and inductors <strong>directly in the ceramic layers</strong>,
+           so the bulk of a board's BOM is fabbed, not placed. Rewrote the homepage hero,
+           added a board-cross-section figure, and gave the technical brief a dedicated
+           embedded-passives section (with the honest tolerance/trim caveat).`
+  },
+
+  {
+    date: '2026-07-19',
+    type: 'research',
+    title: 'Passive footprints: standardizing on IPC-7351',
+    body: `Surveyed SMT footprint standards for the parts we'll still place. IPC-7351C
+           standardizes the land patterns (JEDEC/EIA/IEC set the physical part sizes).
+           Plan: generate <strong>IPC-7351C Nominal (N)</strong> footprints first — the
+           industry default, compatible with most commercial libraries — then compensate
+           pad geometry for our line width and shrinkage once the process is characterized.
+           First passive targets: 0402 / 0603 / 0805 R and C.`
+  },
+
+  {
+    date: '2026-06-24',
+    type: 'decision',
+    title: 'Post-fire metallization as the documented fallback',
+    body: `Committed to carrying a backstop for the co-fire shrinkage-mismatch risk: print
+           and fire the ceramic first, then metallize afterward. Costs some density and
+           layer count, but it sidesteps the mismatch entirely — so the program isn't
+           betting everything on cracking constrained sintering on day one.`
+  },
+
+  {
+    date: '2026-06-10',
+    type: 'decision',
+    title: 'LTCC over HTCC — staying under 900 °C',
+    body: `Chose low-temperature co-fired ceramic (850–900 °C) over HTCC (1400–1600 °C).
+           The LTCC window sits just below silver's melting point, which is what lets us
+           co-fire silver, copper, and gold — the low-resistivity conductors you actually
+           want for RF and high-speed digital. HTCC would force refractory metals at ~10×
+           the resistivity. Everything downstream follows from staying in that window.`,
+    link: { href:'/technology', label:'The reasoning, in the technical brief' }
+  },
+
+  {
+    date: '2026-05-28',
+    type: 'milestone',
+    title: 'Backed by TTU JumpStart + NSF I-Corps',
+    body: `PrometheusPCB picked up Texas Tech Innovation Hub JumpStart funding and an NSF
+           I-Corps customer-discovery grant — enough room to start chasing the gap now
+           instead of someday. Kicked off customer discovery with hardware teams and labs.`
+  },
+
+  {
+    date: '2026-05-12',
+    type: 'milestone',
+    title: 'Project kickoff',
+    body: `Started PrometheusPCB. The thesis: pull ceramic fabrication onto the bench so the
+           wait between revisions stops being the bottleneck. Solo for now, and already
+           looking for a materials co-founder who reads the shrinkage problem as a challenge
+           rather than a dealbreaker.`
+  }
+
+];
+
+/* ---- render (no dependencies) ------------------------------------------- */
+(function(){
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var TYPES  = ['milestone','update','research','decision'];
+
+  function fmtDate(iso){
+    var p = String(iso).split('-');
+    if(p.length < 3) return iso;
+    return MONTHS[parseInt(p[1],10)-1] + ' ' + parseInt(p[2],10) + ', ' + p[0];
+  }
+  function paras(body){
+    // split on blank lines -> paragraphs; content may contain basic HTML
+    return String(body).trim().split(/\n\s*\n/).map(function(chunk){
+      return '<p>' + chunk.replace(/\s*\n\s*/g,' ').trim() + '</p>';
+    }).join('');
+  }
+
+  var sorted = ENTRIES.slice().sort(function(a,b){ return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
+
+  // meta line
+  var meta = document.getElementById('logMeta');
+  if(sorted.length){
+    meta.textContent = sorted.length + ' ' + (sorted.length===1?'entry':'entries') + ' · last updated ' + fmtDate(sorted[0].date);
+  } else {
+    meta.textContent = 'No entries yet.';
+  }
+
+  // filters (with counts)
+  var counts = { all: sorted.length };
+  TYPES.forEach(function(t){ counts[t] = sorted.filter(function(e){return e.type===t;}).length; });
+  var filterWrap = document.getElementById('filters');
+  var buttons = [{k:'all',label:'All'}].concat(TYPES.map(function(t){
+    return { k:t, label: t.charAt(0).toUpperCase()+t.slice(1) };
+  }));
+  buttons.forEach(function(b, i){
+    if(b.k!=='all' && counts[b.k]===0) return; // hide empty type filters
+    var btn = document.createElement('button');
+    btn.className = 'filter' + (b.k==='all' ? ' active' : '');
+    btn.setAttribute('data-filter', b.k);
+    btn.innerHTML = b.label + '<span class="count">' + counts[b.k] + '</span>';
+    btn.addEventListener('click', function(){ setFilter(b.k); });
+    filterWrap.appendChild(btn);
+  });
+
+  // timeline
+  var tl = document.getElementById('timeline');
+  tl.innerHTML = sorted.map(function(e, i){
+    var link = e.link && e.link.href
+      ? '<a class="entry-link" href="'+e.link.href+'">'+ (e.link.label||'Read more') +' &rarr;</a>'
+      : '';
+    return ''
+      + '<article class="entry t-'+e.type+'" data-type="'+e.type+'" style="animation-delay:'+Math.min(i*60,480)+'ms">'
+      +   '<div class="entry-meta">'
+      +     '<span class="entry-date">'+fmtDate(e.date)+'</span>'
+      +     '<span class="entry-tag">'+e.type+'</span>'
+      +   '</div>'
+      +   '<h3 class="entry-title">'+e.title+'</h3>'
+      +   '<div class="entry-body">'+paras(e.body)+'</div>'
+      +   link
+      + '</article>';
+  }).join('');
+
+  var empty = document.getElementById('empty');
+  function setFilter(key){
+    var btns = filterWrap.querySelectorAll('.filter');
+    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-filter')===key); });
+    var shown = 0;
+    tl.querySelectorAll('.entry').forEach(function(el){
+      var match = (key==='all' || el.getAttribute('data-type')===key);
+      el.style.display = match ? '' : 'none';
+      if(match) shown++;
+    });
+    empty.style.display = shown ? 'none' : 'block';
+  }
+})();
+</script>
+</body>
+</html>
