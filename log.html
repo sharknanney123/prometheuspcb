@@ -176,7 +176,7 @@
       <span class="eyebrow">Build log</span>
       <h1>Building in the <span class="glow">open</span>.</h1>
       <p class="lede">A running record of PrometheusPCB for the people following along — investors, accelerators, and anyone who wants to see where this goes. Every milestone, decision, and honest dead end on the way to a desktop ceramic fab, newest first. I'd rather show the work than polish a highlight reel.</p>
-      <p class="log-meta" id="logMeta">8 entries &middot; last updated Jul 24, 2026</p>
+      <p class="log-meta" id="logMeta">9 entries &middot; last updated Jul 24, 2026</p>
       <div class="filters" id="filters"></div>
     </div>
   </section>
@@ -205,7 +205,7 @@
         <p>One known risk is solder leaching at exposed pure-silver pads. We therefore expect to use a leach-resistant Ag-Pd or Ag-Pt termination on external pads while retaining higher-conductivity silver in buried traces. Pad composition, solder alloy, temperature and dwell time will be tested as one system.</p>
         <p>The motion problem is becoming bounded. The material problem is becoming measurable. The next milestone is to make both meet inside one functioning fired circuit.</p></div>
         <div class="entry-gallery">
-          <figure class="entry-figure wide"><img src="assets/concept-poster-2026-07-24.png" alt="Concept poster for the PrometheusPCB all-in-one desktop ceramic PCB system, showing the machine, the print-dry-press-co-fire sequence, the integrated press and furnace, and key specifications." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>Concept poster for the all-in-one system, refined with AI assistance — print, dry, press, co-fire, in one enclosure. This is a render of the machine we are building, not a photo of a finished one, and the specifications on it are targets rather than measured results.</figcaption></figure>
+          <figure class="entry-figure wide"><img src="assets/concept-poster-2026-07-24.png" alt="Concept poster for the PrometheusPCB all-in-one desktop ceramic PCB system, showing the machine, the print-dry-press-co-fire sequence, the integrated press and furnace, and key specifications." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>Concept poster for the all-in-one system, refined with AI assistance — print, dry, press, co-fire, in one enclosure. This is a render of the machine we are building, not a photo of a finished one, and the specifications on it are targets rather than measured results — including the integrated press: pressure-assisted firing is still an experimental variable (see below), not a settled requirement.</figcaption></figure>
           <figure class="entry-figure"><img src="assets/micromanipulator-2026-07-24.jpg" alt="Our assembled Open Micro-Manipulator on a desk: black printed frame, three stepper motors with white printed flexure arms, and a Raspberry Pi microcontroller board with stepper drivers." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>Our build of the Open Micro-Manipulator, assembled and on the bench — parallel kinematics, NEMA-17 steppers, closed-loop controller, printed structural parts. Design by 0x23 (MIT); this unit is ours.</figcaption></figure>
           <figure class="entry-figure wide"><img src="assets/micromanipulator-collision-2026-07-24.gif" alt="Animated CAD study of the micro-manipulator kinematics sweeping through its range of motion, showing the linkage rods, lever arms and ball-joint chains moving and where the mechanism runs into itself." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>CAD motion study of the kinematics through its range — where the linkages run into each other is what actually bounds the usable working volume, and therefore what the motion architecture has to solve.</figcaption></figure>
           <figure class="entry-figure"><img src="assets/benchy-green-2026-07-24.jpg" alt="A 3DBenchy boat printed in borosilicate glass-filled filament, matte off-white, sitting on a desk mat." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>3DBenchy printed in the borosilicate glass filament — the test article for the internally-routed silver build.</figcaption></figure>
@@ -221,6 +221,7 @@
         <div class="entry-body"><p><strong>Research phase done — now we build.</strong> The material and process questions we could settle on paper are settled; the next move is to make something real and put it in front of people.</p>
         <p>Our first functional-object prototype is a 3D-printed <strong>3DBenchy</strong> (the standard 3D-printing benchmark boat) with conductive <strong>traces and vias routed inside the model itself</strong>, and LEDs mounted on the outside surface, lit through the wiring buried in the print.</p>
         <p>This first one is hand-built on purpose. Instead of waiting on a finished machine, we run the process ourselves, one step at a time — 3D-print the part, apply the conductor ink by hand into the channels, then co-fire it. Doing each step individually is how we prove the full sequence works end to end; <strong>folding those three steps into one automated pass is exactly what the machine is for.</strong></p>
+        <p>To square this with the technical brief's paste-not-filament argument: printing the green body from glass-filled filament is a deliberate shortcut for these hand-run proofs — the fastest way to a fireable glass part before the paste toolhead exists. The conductor already goes down as dispensed ink, and what these builds validate is firing, shrinkage, and conductor behavior. The machine itself stays a direct-ink-writing design.</p>
         <p>The point isn't the boat — it's the proof. Once the conductors live inside the printed geometry, the "circuit board" stops having to be a board at all: it can be any shape the part already is. Target: finished by <strong>July 26</strong> to anchor a Y Combinator application — a concrete milestone in hand, plus the bigger picture of where a machine that prints electronics <em>inside</em> the object can go.</p>
         <p><strong>Groundwork behind it.</strong> Repositioned the whole site around printed passives: the machine isn't just a PCB printer — it forms resistors, capacitors, and inductors directly in the ceramic layers, so the bulk of a board's BOM is fabbed, not placed. And for the parts we'll still place by hand, standardized on <strong>IPC-7351</strong> footprints (Nominal (N) first — the industry default), to compensate later for our line width and shrinkage. First passive targets: 0402 / 0603 / 0805 R and C.</p></div>
       </article>
@@ -228,39 +229,49 @@
       <article class="entry t-milestone" data-type="milestone" data-date="2026-07-15" style="animation-delay:120ms">
         <div class="entry-meta"><span class="entry-date">Jul 15, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">First silver ink ordered — and a coupon to measure it</h3>
-        <div class="entry-body"><p>First atoms in motion. We ordered our first <strong>silver conductor ink</strong> — the metal that becomes the traces once it's printed and fired — and designed a dedicated <strong>trace-thickness test coupon</strong> to characterize it.</p>
+        <div class="entry-body"><p>First atoms in motion. The Dycotec order went in — our first <strong>silver conductor ink</strong>, the metal that becomes the traces once it's printed and fired — and we designed a dedicated <strong>trace-thickness test coupon</strong> to characterize it.</p>
         <p>The coupon (pictured) is a set of straight traces stepped across a range of widths, each capped with probe pads at both ends. Print it, co-fire it, then measure: how much a fired trace <strong>shrinks</strong> from its drawn size, and what the final geometry does to <strong>conductivity and resistance</strong>.</p>
         <p>That's the ground truth the rest of the process needs. Once we know the shrinkage factor and the sheet resistance of a real fired trace, we can compensate the drawn geometry to hit target dimensions and trust the electrical numbers — the same compensation the printed footprints and passives will lean on.</p></div>
         <figure class="entry-figure"><img src="assets/test-coupon-2026-07-15.jpg" alt="CAD view of the trace-thickness test coupon: two boards of straight traces stepped across a range of widths, each trace ending in circular probe pads." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>TraceThickness test coupon (ProPCB) — traces stepped across widths with probe pads at each end, for measuring fired shrinkage and trace resistance.</figcaption></figure>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-01" style="animation-delay:180ms">
+      <article class="entry t-decision" data-type="decision" data-date="2026-07-10" style="animation-delay:180ms">
+        <div class="entry-meta"><span class="entry-date">Jul 10, 2026</span><span class="entry-tag">decision</span></div>
+        <h3 class="entry-title">Signed with Dycotec for the silver — a custom fritless paste, and the education bundled in</h3>
+        <div class="entry-body"><p>The conductor has a supplier. After shopping thick-film paste makers for a silver that can co-fire in air around <strong>850&nbsp;°C on a borosilicate green body</strong>, we've signed with <strong>Dycotec Materials</strong> (UK). Nothing off the shelf fits — standard silvers carry glass frit and are built for firing on pre-fired alumina — so the deal is a small custom batch made for us: <strong>DM-SIP-14001-K0, a fritless silver</strong>, plus a matched thinner for dispensing. The conductor side of the process is direct-ink-writing paste from day one, even while the green bodies for the hand-run proofs come off a filament printer.</p>
+        <p><strong>Fritless is the decision worth logging.</strong> Conductor pastes normally carry frit to grip a substrate that's already dense and fired. Our case is inverted: the body is green glass that softens in the same firing, so the substrate itself provides the bond and added frit only complicates the interface chemistry. Dycotec's engineers landed on the same call before we'd shared our instinct — the kind of convergence you want before spending materials budget.</p>
+        <p><strong>The order is as much tuition as material.</strong> Part of the point is a deliberate investment in the materials science of how a conductor behaves in this machine, and the spec exchange alone retired real unknowns: fineness of grind under 10&nbsp;µm (comfortable through our 300–400&nbsp;µm nozzles), a 400–450&nbsp;°C binder-burnout window that now anchors the front of our firing profile ahead of the 850&nbsp;°C peak, thinner on hand because screen-printing rheology isn't dispensing rheology, and pure silver for now — leach-resistant Ag-Pd terminations can wait until solderability is the question on the bench. Each answer is a coupon we don't have to ruin to learn the same thing.</p>
+        <p><strong>The honest terms:</strong> it's a best-efforts batch. Dycotec hasn't fired on a green borosilicate body any more than we have, and there's no technical datasheet until the material exists. About $850 all-in of JumpStart money for 75&nbsp;g of paste, thinner, and shipping, on roughly a ten-working-day manufacture. We're buying an experiment, not a guaranteed component — and we'd make that trade again.</p></div>
+        <a class="entry-link" href="https://www.dycotecmaterials.com">Dycotec Materials &rarr;</a>
+      </article>
+
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-01" style="animation-delay:240ms">
         <div class="entry-meta"><span class="entry-date">Jul 1, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">Julian Stoller joined as co-founder</h3>
         <div class="entry-body"><p>Picked up a co-founder: <strong>Julian Stoller</strong>. Julian brings deep additive-manufacturing expertise — the deposition and process side of building a machine like this — which pairs directly with the EE/ME side of the work. From here we're tackling PrometheusPCB together.</p></div>
         <a class="entry-link" href="https://www.linkedin.com/in/julian-stoller-394a16166/">Julian on LinkedIn &rarr;</a>
       </article>
 
-      <article class="entry t-decision" data-type="decision" data-date="2026-06-24" style="animation-delay:240ms">
+      <article class="entry t-decision" data-type="decision" data-date="2026-06-24" style="animation-delay:300ms">
         <div class="entry-meta"><span class="entry-date">Jun 24, 2026</span><span class="entry-tag">decision</span></div>
         <h3 class="entry-title">Post-fire metallization as the documented fallback</h3>
         <div class="entry-body"><p>Committed to carrying a backstop for the co-fire shrinkage-mismatch risk: print and fire the ceramic first, then metallize afterward. Costs some density and layer count, but it sidesteps the mismatch entirely — so the program isn't betting everything on cracking constrained sintering on day one.</p></div>
       </article>
 
-      <article class="entry t-decision" data-type="decision" data-date="2026-06-10" style="animation-delay:300ms">
+      <article class="entry t-decision" data-type="decision" data-date="2026-06-10" style="animation-delay:360ms">
         <div class="entry-meta"><span class="entry-date">Jun 10, 2026</span><span class="entry-tag">decision</span></div>
         <h3 class="entry-title">LTCC over HTCC — staying under 900 °C</h3>
         <div class="entry-body"><p>Chose low-temperature co-fired ceramic (850–900 °C) over HTCC (1400–1600 °C). The LTCC window sits just below silver's melting point, which is what lets us co-fire silver, copper, and gold — the low-resistivity conductors you actually want for RF and high-speed digital. HTCC would force refractory metals at ~10× the resistivity. Everything downstream follows from staying in that window.</p></div>
         <a class="entry-link" href="/technology">The reasoning, in the technical brief &rarr;</a>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-28" style="animation-delay:360ms">
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-28" style="animation-delay:420ms">
         <div class="entry-meta"><span class="entry-date">May 28, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">Backed by TTU JumpStart + NSF I-Corps</h3>
         <div class="entry-body"><p>PrometheusPCB picked up Texas Tech Innovation Hub JumpStart funding and an NSF I-Corps customer-discovery grant — enough room to start chasing the gap now instead of someday. Kicked off customer discovery with hardware teams and labs.</p></div>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-12" style="animation-delay:420ms">
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-12" style="animation-delay:480ms">
         <div class="entry-meta"><span class="entry-date">May 12, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">Project kickoff</h3>
         <div class="entry-body"><p>Started PrometheusPCB. The thesis: pull ceramic fabrication onto the bench so the wait between revisions stops being the bottleneck. Solo for now, and already looking for a materials co-founder who reads the shrinkage problem as a challenge rather than a dealbreaker.</p></div>

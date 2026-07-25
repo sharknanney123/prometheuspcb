@@ -329,6 +329,7 @@
       <div class="body reveal">
         <p>A fused-filament printer melts a thermoplastic strand. Co-fired ceramic isn't a thermoplastic — it's a ceramic-and-glass powder suspended in a binder, and the conductor is a separate metal-loaded paste laid down in the same build. Neither one feeds through an FFF hot end.</p>
         <p>The correct primitive is <strong>direct ink writing</strong> — robocasting: extrude a loaded paste through a fine nozzle under controlled rheology, place dielectric and conductor in the same pass, then co-fire the green part into a solid board. That fork in the road is what separates a real ceramic process from the FFF-based "PCB printer" projects that stall on materials.</p>
+        <p>One note of candor, because the <a href="/log" style="color:var(--copper-bright)">build log</a> shows filament on our own bench: today's hand-run coupons and test articles are FFF-printed from glass-filled filament — the fastest way to a fireable green body before the paste toolhead exists. It's scaffolding for the firing, shrinkage, and conductor experiments (the conductor already goes down as dispensed paste), not the machine's architecture. The machine is, and stays, a paste process.</p>
       </div>
 
       <!-- FIG 02 — FFF vs DIW -->
@@ -372,7 +373,7 @@
       </div>
       <div class="body reveal">
         <p>This is the part that makes ceramic worth the trouble. Because direct ink writing already places more than one paste in a build, a resistor is a stripe of resistive paste between two vias; a capacitor is an electrode / dielectric / electrode stack; an inductor is a coil of the same conductor. All of them are formed <strong>inside the layers</strong>, in the same pass that lays the wiring — the headline capability LTCC has had in production for decades, pulled onto the bench.</p>
-        <p>That matters because passives dominate a bill of materials. Resistors and capacitors are routinely 70–90% of the part count on a real board. Print those in and the machine stops being a wiring printer and starts being a <strong>functional-electronics printer</strong> — you place only the active silicon.</p>
+        <p>That matters because passives dominate a bill of materials. Resistors and capacitors are routinely 70–90% of the part count on a real board. Print those in and the machine stops being a wiring printer and starts being a <strong>functional-electronics printer</strong> — what's left to place is the active silicon, plus the short list of tight-tolerance holdouts the caveat below names.</p>
       </div>
 
       <div class="trio reveal">
@@ -413,7 +414,7 @@
 
       <aside class="callout reveal" style="border-left-color:var(--copper)">
         <p class="tag" style="color:var(--copper)">The honest caveat</p>
-        <p>Printed passives start loose. A commercial chip resistor ships at 1% or better; a printed one lands roughly <strong>10–20% off</strong> until it's laser-trimmed or closed-loop corrected, and a printed capacitor holds far less capacitance per area than an MLCC. So the first target isn't every part — it's the long tail of loose-tolerance pull-ups, decoupling, and terminations that make up most of the count. Tight-tolerance and high-value parts, and every active device, stay on the placement list — dropped onto <strong>standard IPC-7351 footprints</strong> the machine prints for you.</p>
+        <p>Printed passives start loose. A commercial chip resistor ships at 1% or better; a printed one lands roughly <strong>10–20% off</strong> until it's laser-trimmed or closed-loop corrected, and a printed capacitor holds far less capacitance per area than an MLCC. So the first target isn't every part — it's the long tail of loose-tolerance pull-ups, terminations, and the small-value coupling and filter caps a printed plate can actually deliver. Bulk decoupling, tight-tolerance and high-value parts, and every active device, stay on the placement list — dropped onto <strong>standard IPC-7351 footprints</strong> the machine prints for you.</p>
       </aside>
     </div>
   </section>
@@ -427,7 +428,7 @@
       </div>
       <div class="body reveal">
         <p>Fire a green board and both materials densify and shrink — but not by the same amount, and not at the same rate. Control that <strong>co-firing shrinkage mismatch</strong> and the board comes out dimensionally true. Lose control of it and you get warpage, delamination, and broken traces.</p>
-        <p>Production LTCC fabs hold in-plane shrinkage to about ±0.2% using constrained-sintering techniques. Reproducing that kind of control in a desktop-scale machine is the central unsolved problem — and we'd rather name it than bury it.</p>
+        <p>Production LTCC fabs hold in-plane shrinkage to about ±0.2% using constrained-sintering techniques. Reproducing that kind of control in a desktop-scale machine is the central unsolved problem — and we'd rather name it than bury it. It has company on the bench, too: the <a href="/log" style="color:var(--copper-bright)">build log</a> tracks fired-part brittleness alongside it as a second measured materials problem.</p>
       </div>
 
       <!-- FIG 03 — shrinkage -->
@@ -441,7 +442,7 @@
           <text x="352" y="176" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#7E939B">−~14% linear (typ.)</text>
           <text x="105" y="184" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#7E939B">uneven between layers → warp</text>
         </svg>
-        <figcaption>FIG_03 · co-fire shrinkage</figcaption>
+        <figcaption>FIG_03 · co-fire shrinkage <span class="note">— ~14% is typical of production LTCC tape; our first borosilicate coupons measure ~10% (log · Jul 24)</span></figcaption>
       </figure>
 
       <aside class="callout reveal">
@@ -489,7 +490,7 @@
         <h2>Funded, two founders, and building the first prototype.</h2>
       </div>
       <div class="body reveal">
-        <p>PrometheusPCB is backed by the Texas Tech Innovation Hub JumpStart grant and NSF I-Corps customer-discovery funding. Aaron Wang (EE/ME) and Julian Stoller (additive manufacturing) are the founding team — and with the research settled, we're heads-down building the first hand-run prototype while we keep talking to the teams and labs who'd use it.</p>
+        <p>PrometheusPCB is backed by the Texas Tech Innovation Hub JumpStart grant and NSF I-Corps customer-discovery funding. Aaron Wang (EE/ME) and Julian Stoller (additive manufacturing) are the founding team — and with the paper research settled, we're heads-down building the first hand-run prototype and turning the open questions into bench experiments, while we keep talking to the teams and labs who'd use it.</p>
         <p>The seat we're still filling is deep materials. If you work in <strong>ceramic processing, paste rheology, or constrained sintering</strong> — and the shrinkage problem above reads as a challenge rather than a dealbreaker — we should talk.</p>
       </div>
       <div class="cta-row reveal">

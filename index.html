@@ -280,7 +280,7 @@
       <h2>The iteration loop is where hardware goes to die.</h2>
     </div>
     <p style="max-width:62ch;color:#C3CDD0;font-size:1.05rem">
-      Software engineers ship a change and see it in seconds. Hardware engineers ship a board to a fab and see it next week — then find the one mistake and start the clock over. Every revision is a multi-day round trip. PrometheusPCB collapses that loop to the length of a coffee break, so the bottleneck stops being logistics and goes back to being your ideas.
+      Software engineers ship a change and see it in seconds. Hardware engineers ship a board to a fab and see it next week — then find the one mistake and start the clock over. Every revision is a multi-day round trip. PrometheusPCB collapses that loop into hours on your own bench, so the bottleneck stops being logistics and goes back to being your ideas.
     </p>
   </div>
 </section>
@@ -299,7 +299,7 @@
         </p>
         <ul class="leap-list">
           <li><strong>Passives print in.</strong> R, L, and C are formed in-layer as the board is built — the bulk of your BOM is fabbed, not placed.</li>
-          <li><strong>You place only the silicon.</strong> MCUs, ICs, connectors, and crystals land on standard IPC-7351 footprints the machine lays down for you.</li>
+          <li><strong>You place the silicon — and the picky parts.</strong> MCUs, ICs, connectors, crystals, and the few tight-tolerance passives land on standard IPC-7351 footprints the machine lays down for you.</li>
           <li><strong>Fewer parts, fewer joints.</strong> Delete the long tail of discrete passives and you delete most of the placement, soldering, and rework a revision costs.</li>
         </ul>
       </div>
@@ -407,7 +407,7 @@
       <div class="card">
         <span class="n">03</span>
         <h3>Iterate, then iterate again</h3>
-        <p>Spin a revision, print it — passives and all — test it, repeat. Several times in a day instead of several times a month.</p>
+        <p>Spin a revision, print it — passives and all — test it, repeat. A fresh board every day instead of every few weeks.</p>
       </div>
     </div>
   </div>
