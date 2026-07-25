@@ -176,15 +176,96 @@
       <span class="eyebrow">Build log</span>
       <h1>Building in the <span class="glow">open</span>.</h1>
       <p class="lede">A running record of PrometheusPCB for the people following along — investors, accelerators, and anyone who wants to see where this goes. Every milestone, decision, and honest dead end on the way to a desktop ceramic fab, newest first. I'd rather show the work than polish a highlight reel.</p>
-      <p class="log-meta" id="logMeta">&nbsp;</p>
+      <p class="log-meta" id="logMeta">8 entries &middot; last updated Jul 24, 2026</p>
       <div class="filters" id="filters"></div>
     </div>
   </section>
 
   <section class="divider" style="padding-top:44px">
     <div class="wrap">
-      <div class="timeline" id="timeline"></div>
-      <p class="empty" id="empty" style="display:none">No entries under this filter yet.</p>
+      <div class="timeline" id="timeline">
+      <article class="entry t-update" data-type="update" data-date="2026-07-24" style="animation-delay:0ms">
+        <div class="entry-meta"><span class="entry-date">Jul 24, 2026</span><span class="entry-tag">update</span></div>
+        <h3 class="entry-title">Fine-motion platform selected — and the first honest look at fired glass</h3>
+        <div class="entry-body"><p>For the MVP we're leaning on open source wherever someone has already solved a problem better than we would. The clearest example is the motion system.</p>
+        <p>We've selected <a href="https://github.com/0x23/MicroManipulatorStepper">0x23's Open Micro-Manipulator</a> as our fine-positioning stage — an open-source parallel-kinematic XYZ platform built around off-the-shelf NEMA-17 steppers, magnetic encoder feedback, a Raspberry Pi microcontroller board, commodity driver modules, a carrier PCB that needs no SMD assembly, and structural parts we can print or mill.</p>
+        <p>Building a precision stage from scratch could consume a year. That is not our year of work. The hard problem behind PrometheusPCB is the ceramic and conductor process, not reinventing a gantry. It also isn't a bet on an abandoned repo: ~1.7k stars, 240 forks, an active community, and hardware now at v4.0 with the earlier ball-joint and homing problems already found and fixed by someone other than us.</p>
+        <p><strong>The complete motion architecture is not settled.</strong> The manipulator provides fine positioning, but its working area is much smaller than the 200 × 200&nbsp;mm build area in our concept specification. We see three options: move the platen underneath it with a coarse XY stage, reduce the build area, or modify the manipulator geometry. We're evaluating the usable workspace in CAD, including where the linkages begin to collide — on a parallel mechanism it's self-collision, not motor travel, that sets the real limit.</p>
+        <p>Inside that working area the platform gives us considerably more positioning resolution than our process currently needs: commanded steps down to ~50&nbsp;nm, from magnetic gearing that interpolates low-cost rotary encoders about 30× under a 30&nbsp;kHz closed loop, against nozzles measured in hundreds of microns. That headroom matters because traces, vias and later dielectric layers must repeatedly land on the same locations. The project correctly distinguishes resolution from accuracy, so our process will rely on part-based fiducials and repeatable local registration rather than assuming perfect global coordinates. If a coarse stage is added, each new working region will be registered back to the part.</p>
+        <p>The platform also fits our control architecture. It accepts G-code over USB, provides a Python interface, and supports motion-synchronized PWM tool outputs — so dispensing can be timed inside the motion planner rather than controlled independently by the host computer.</p>
+        <p><strong>On licensing:</strong> it's MIT, extended unusually to reach the hardware design and concept as well as the software, so the attribution travels with our documentation. Worth being precise about the limit, since MIT is easy to over-read: it's a copyright grant, not a patent license. Either way we're not trying to build intellectual property around the XYZ stage. Our defensible work is the co-firing process, the material system, and the integrated manufacturing workflow.</p>
+        <p><strong>Fired glass: one number and one problem.</strong> Our latest borosilicate glass filament coupon showed approximately <strong>10% linear shrinkage</strong> after firing.<!-- TODO: replace with the measured before/after dimensions --></p>
+        <p>That gives us an initial geometry-compensation factor, but it is not yet a complete process model. The next coupons will measure shrinkage independently in X, Y and Z and compare the final silver conductor dimensions with the surrounding glass.</p>
+        <p>Uniform and repeatable shrinkage is something we can compensate for mathematically. Differential shrinkage is the larger risk. If the glass and silver contract at different rates during the firing cycle, the result can be cracked parts, separated interfaces or open conductors. That mismatch has not yet been measured, and it is the next major experiment on the bench.</p>
+        <p>Using standardized IPC-7351 Nominal land patterns gives us a consistent starting geometry. We can then apply our own process compensation rather than redesigning every footprint independently.</p>
+        <p><strong>The second result is less encouraging: the fired parts are extremely brittle.</strong> That does not automatically rule out the material, but it means durability has to become a measured engineering problem rather than something we assume will improve. We're separating the possible causes into firing schedule, residual porosity, part geometry, surface flaws and handling conditions, and we'll evaluate revised thermal cycles, annealing and surface sealing before committing to an additional production step.</p>
+        <p>Pressure-assisted firing will also remain an experimental variable rather than a fixed product requirement. Initial tests will stay coupon-scale because the required force rises rapidly with part area. We first need to determine whether pressure improves bonding without distorting printed traces or fracturing the glass.</p>
+        <p><strong>The next demonstration.</strong> The next functional test vehicle is still the glass Benchy, but the success criterion is not whether it looks like a boat. Silver conductors will be routed internally through the fired part and connected to pads on the exterior surface. We will then solder real SMT components to those pads. Success means: <ul> <li>The buried conductors retain continuity after firing.</li> <li>The external pads remain solderable.</li> <li>The part survives assembly without cracking.</li> <li>The completed circuit operates.</li> </ul></p>
+        <p>At that point it stops being a demonstration of a printed shape with conductive material inside it. It becomes a circuit board that was never a board.</p>
+        <p>One known risk is solder leaching at exposed pure-silver pads. We therefore expect to use a leach-resistant Ag-Pd or Ag-Pt termination on external pads while retaining higher-conductivity silver in buried traces. Pad composition, solder alloy, temperature and dwell time will be tested as one system.</p>
+        <p>The motion problem is becoming bounded. The material problem is becoming measurable. The next milestone is to make both meet inside one functioning fired circuit.</p></div>
+        <div class="entry-gallery">
+          <figure class="entry-figure wide"><img src="assets/concept-poster-2026-07-24.png" alt="Concept poster for the PrometheusPCB all-in-one desktop ceramic PCB system, showing the machine, the print-dry-press-co-fire sequence, the integrated press and furnace, and key specifications." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>Concept poster for the all-in-one system, refined with AI assistance — print, dry, press, co-fire, in one enclosure. This is a render of the machine we are building, not a photo of a finished one, and the specifications on it are targets rather than measured results.</figcaption></figure>
+          <figure class="entry-figure"><img src="assets/micromanipulator-2026-07-24.jpg" alt="The Open Micro-Manipulator assembled on a desk: black printed frame, three stepper motors with white flexure arms, and a Raspberry Pi microcontroller board with stepper drivers." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>The Open Micro-Manipulator (0x23) on the bench — parallel kinematics, NEMA-17 steppers, closed-loop controller. This is the fine-motion platform PrometheusPCB builds on.</figcaption></figure>
+          <figure class="entry-figure wide"><img src="assets/micromanipulator-collision-2026-07-24.gif" alt="Animated CAD study of the micro-manipulator kinematics sweeping through its range of motion, showing the linkage rods, lever arms and ball-joint chains moving and where the mechanism runs into itself." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>CAD motion study of the kinematics through its range — where the linkages run into each other is what actually bounds the usable working volume, and therefore what the motion architecture has to solve.</figcaption></figure>
+          <figure class="entry-figure"><img src="assets/benchy-green-2026-07-24.jpg" alt="A 3DBenchy boat printed in borosilicate glass-filled filament, matte off-white, sitting on a desk mat." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>3DBenchy printed in the borosilicate glass filament — the test article for the internally-routed silver build.</figcaption></figure>
+          <figure class="entry-figure"><img src="assets/kiln-fire-2026-07-24.jpg" alt="A small stainless bench kiln with its door open, showing a fired dark test article on white refractory board inside, controller reading temperature." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>Bench kiln with a fired test article inside — the firing setup behind the shrinkage and brittleness results.</figcaption></figure>
+          <figure class="entry-figure"><img src="assets/shrinkage-calipers-2026-07-24.jpg" alt="Digital calipers measuring a fired test article on a desk." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>Post-fire dimensional check. Roughly 10% linear shrinkage in the fired glass — a provisional compensation factor, not yet a characterized one.</figcaption></figure>
+        </div>
+        <a class="entry-link" href="https://github.com/0x23/MicroManipulatorStepper">Open Micro-Manipulator on GitHub &rarr;</a>
+      </article>
+
+      <article class="entry t-update" data-type="update" data-date="2026-07-19" style="animation-delay:60ms">
+        <div class="entry-meta"><span class="entry-date">Jul 19, 2026</span><span class="entry-tag">update</span></div>
+        <h3 class="entry-title">Next target: a functional 3DBenchy for YC</h3>
+        <div class="entry-body"><p><strong>Research phase done — now we build.</strong> The material and process questions we could settle on paper are settled; the next move is to make something real and put it in front of people.</p>
+        <p>Our first functional-object prototype is a 3D-printed <strong>3DBenchy</strong> (the standard 3D-printing benchmark boat) with conductive <strong>traces and vias routed inside the model itself</strong>, and LEDs mounted on the outside surface, lit through the wiring buried in the print.</p>
+        <p>This first one is hand-built on purpose. Instead of waiting on a finished machine, we run the process ourselves, one step at a time — 3D-print the part, apply the conductor ink by hand into the channels, then co-fire it. Doing each step individually is how we prove the full sequence works end to end; <strong>folding those three steps into one automated pass is exactly what the machine is for.</strong></p>
+        <p>The point isn't the boat — it's the proof. Once the conductors live inside the printed geometry, the "circuit board" stops having to be a board at all: it can be any shape the part already is. Target: finished by <strong>July 26</strong> to anchor a Y Combinator application — a concrete milestone in hand, plus the bigger picture of where a machine that prints electronics <em>inside</em> the object can go.</p>
+        <p><strong>Groundwork behind it.</strong> Repositioned the whole site around printed passives: the machine isn't just a PCB printer — it forms resistors, capacitors, and inductors directly in the ceramic layers, so the bulk of a board's BOM is fabbed, not placed. And for the parts we'll still place by hand, standardized on <strong>IPC-7351</strong> footprints (Nominal (N) first — the industry default), to compensate later for our line width and shrinkage. First passive targets: 0402 / 0603 / 0805 R and C.</p></div>
+      </article>
+
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-15" style="animation-delay:120ms">
+        <div class="entry-meta"><span class="entry-date">Jul 15, 2026</span><span class="entry-tag">milestone</span></div>
+        <h3 class="entry-title">First silver ink ordered — and a coupon to measure it</h3>
+        <div class="entry-body"><p>First atoms in motion. We ordered our first <strong>silver conductor ink</strong> — the metal that becomes the traces once it's printed and fired — and designed a dedicated <strong>trace-thickness test coupon</strong> to characterize it.</p>
+        <p>The coupon (pictured) is a set of straight traces stepped across a range of widths, each capped with probe pads at both ends. Print it, co-fire it, then measure: how much a fired trace <strong>shrinks</strong> from its drawn size, and what the final geometry does to <strong>conductivity and resistance</strong>.</p>
+        <p>That's the ground truth the rest of the process needs. Once we know the shrinkage factor and the sheet resistance of a real fired trace, we can compensate the drawn geometry to hit target dimensions and trust the electrical numbers — the same compensation the printed footprints and passives will lean on.</p></div>
+        <figure class="entry-figure"><img src="assets/test-coupon-2026-07-15.jpg" alt="CAD view of the trace-thickness test coupon: two boards of straight traces stepped across a range of widths, each trace ending in circular probe pads." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>TraceThickness test coupon (ProPCB) — traces stepped across widths with probe pads at each end, for measuring fired shrinkage and trace resistance.</figcaption></figure>
+      </article>
+
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-01" style="animation-delay:180ms">
+        <div class="entry-meta"><span class="entry-date">Jul 1, 2026</span><span class="entry-tag">milestone</span></div>
+        <h3 class="entry-title">Julian Stoller joined as co-founder</h3>
+        <div class="entry-body"><p>Picked up a co-founder: <strong>Julian Stoller</strong>. Julian brings deep additive-manufacturing expertise — the deposition and process side of building a machine like this — which pairs directly with the EE/ME side of the work. From here we're tackling PrometheusPCB together.</p></div>
+        <a class="entry-link" href="https://www.linkedin.com/in/julian-stoller-394a16166/">Julian on LinkedIn &rarr;</a>
+      </article>
+
+      <article class="entry t-decision" data-type="decision" data-date="2026-06-24" style="animation-delay:240ms">
+        <div class="entry-meta"><span class="entry-date">Jun 24, 2026</span><span class="entry-tag">decision</span></div>
+        <h3 class="entry-title">Post-fire metallization as the documented fallback</h3>
+        <div class="entry-body"><p>Committed to carrying a backstop for the co-fire shrinkage-mismatch risk: print and fire the ceramic first, then metallize afterward. Costs some density and layer count, but it sidesteps the mismatch entirely — so the program isn't betting everything on cracking constrained sintering on day one.</p></div>
+      </article>
+
+      <article class="entry t-decision" data-type="decision" data-date="2026-06-10" style="animation-delay:300ms">
+        <div class="entry-meta"><span class="entry-date">Jun 10, 2026</span><span class="entry-tag">decision</span></div>
+        <h3 class="entry-title">LTCC over HTCC — staying under 900 °C</h3>
+        <div class="entry-body"><p>Chose low-temperature co-fired ceramic (850–900 °C) over HTCC (1400–1600 °C). The LTCC window sits just below silver's melting point, which is what lets us co-fire silver, copper, and gold — the low-resistivity conductors you actually want for RF and high-speed digital. HTCC would force refractory metals at ~10× the resistivity. Everything downstream follows from staying in that window.</p></div>
+        <a class="entry-link" href="/technology">The reasoning, in the technical brief &rarr;</a>
+      </article>
+
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-28" style="animation-delay:360ms">
+        <div class="entry-meta"><span class="entry-date">May 28, 2026</span><span class="entry-tag">milestone</span></div>
+        <h3 class="entry-title">Backed by TTU JumpStart + NSF I-Corps</h3>
+        <div class="entry-body"><p>PrometheusPCB picked up Texas Tech Innovation Hub JumpStart funding and an NSF I-Corps customer-discovery grant — enough room to start chasing the gap now instead of someday. Kicked off customer discovery with hardware teams and labs.</p></div>
+      </article>
+
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-12" style="animation-delay:420ms">
+        <div class="entry-meta"><span class="entry-date">May 12, 2026</span><span class="entry-tag">milestone</span></div>
+        <h3 class="entry-title">Project kickoff</h3>
+        <div class="entry-body"><p>Started PrometheusPCB. The thesis: pull ceramic fabrication onto the bench so the wait between revisions stops being the bottleneck. Solo for now, and already looking for a materials co-founder who reads the shrinkage problem as a challenge rather than a dealbreaker.</p></div>
+      </article>
+      </div>
     </div>
   </section>
 </main>
@@ -205,380 +286,95 @@
 /* ============================================================================
    HOW TO ADD AN ENTRY
    ----------------------------------------------------------------------------
-   Add one object to the TOP of the ENTRIES array below. Order in the array
-   doesn't matter — entries are sorted by date automatically, newest first.
+   Entries are plain HTML in the timeline above — no build step, no JS array.
+   Copy this block, paste it as the FIRST child of <div class="timeline">, and
+   edit it. Newest goes on top; the order in the file is the order on the page.
 
-   {
-     date:  '2026-08-01',              // YYYY-MM-DD
-     type:  'milestone',               // 'milestone' | 'update' | 'research' | 'decision'
-     title: 'Short headline',
-     body:  `What happened, in your own words. Plain text is fine.
+   <article class="entry t-update" data-type="update" data-date="2026-08-01">
+     <div class="entry-meta"><span class="entry-date">Aug 1, 2026</span><span class="entry-tag">update</span></div>
+     <h3 class="entry-title">Short headline</h3>
+     <div class="entry-body">
+       <p>What happened, in your own words. One &lt;p&gt; per paragraph.</p>
+       <p>You can use <strong>bold</strong>, <a href="...">links</a>, and lists.</p>
+     </div>
 
-             Leave a blank line to start a new paragraph. You can also use basic
-             HTML here — <strong>bold</strong>, <a href="...">links</a>, or a list:
-             <ul><li>point one</li><li>point two</li></ul>`,
-     link:  { href:'https://...', label:'Read the paper' },  // OPTIONAL — delete if unused
-     image: { src:'/assets/photo.png', alt:'describe it', caption:'shown under the image' }  // OPTIONAL — drop the file in /assets/; a missing file just hides itself
-   },
+     OPTIONAL one photo — drop the file in /assets/; a missing file hides itself:
+     <figure class="entry-figure">
+       <img src="assets/photo.jpg" alt="describe it" loading="lazy"
+            onerror="this.closest('.entry-figure').style.display='none'">
+       <figcaption>Shown under the image.</figcaption>
+     </figure>
 
-   For MORE THAN ONE photo, use `images` instead of `image` — it renders as a grid:
+     OPTIONAL several photos — wrap them in a gallery; add class="entry-figure wide"
+     to any figure that should span the full width:
+     <div class="entry-gallery">
+       <figure class="entry-figure wide"><img src="assets/a.png" alt="..." loading="lazy"><figcaption>...</figcaption></figure>
+       <figure class="entry-figure"><img src="assets/b.jpg" alt="..." loading="lazy"><figcaption>...</figcaption></figure>
+     </div>
 
-     images: [
-       { src:'assets/a.png', alt:'...', caption:'...', wide:true },  // wide:true spans the full grid width
-       { src:'assets/b.jpg', alt:'...', caption:'...' }
-     ]
+     OPTIONAL link:
+     <a class="entry-link" href="https://...">Read the paper &rarr;</a>
+   </article>
 
-   `image` still works for single photos. Missing files hide themselves either way.
+   Two things to keep in sync by hand:
+     - data-type must match the t-* class (milestone | update | research | decision)
+     - the entry count and date in <p class="log-meta"> near the top of the page
 
-   Types & their color: milestone = orange (big moments), update = copper
-   (weekly progress), research = teal (findings/experiments), decision = gold
-   (choices + the reasoning behind them).
+   Types & their colour: milestone = orange (big moments), update = copper
+   (progress), research = teal (findings), decision = gold (choices + reasoning).
 
-   The seed entries below are your real ones — edit the dates/wording to match,
-   and add new ones on top as you go.
+   Why the entries live in HTML rather than a JS array: search engines, link
+   previews and AI summarisers read the HTML without running scripts. Anything
+   built by JS is invisible to them. The filters below are the only scripted
+   part, so the log still reads fine with JavaScript switched off.
    ========================================================================== */
-var ENTRIES = [
-
-  {
-    date: '2026-07-24',
-    type: 'update',
-    title: 'Fine-motion platform selected, and the first honest look at fired glass',
-    body: `<strong>For the MVP we're leaning on open source wherever someone has already solved a
-           problem better than we would, and this is the clearest example of it.</strong> The machine will
-           move on
-           <a href="https://github.com/0x23/MicroManipulatorStepper">0x23's Open Micro-Manipulator</a>,
-           an open-source parallel-kinematic XYZ platform. Building a precision stage from scratch is a
-           year of work that isn't our year of work — the hard problem here is the ceramic, not the
-           gantry. Expect more decisions shaped this way: where a mature open project already covers a
-           subsystem, we integrate it and spend our own time on the process.
-
-           To be precise about what is and isn't settled: we've selected the <em>fine-motion</em> stage.
-           The complete motion architecture is still open, and that's an architectural decision rather
-           than an implementation detail. More on it below.
-
-           <strong>Why this stage.</strong>
-           <ul>
-             <li><strong>Precision where it actually costs us.</strong> The platform commands steps down
-                 to ~50&nbsp;nm, from a magnetic-gearing approach that interpolates low-cost rotary
-                 encoders about 30× under a 30&nbsp;kHz closed loop. We don't need 50&nbsp;nm. What we need
-                 is for placement error to be a small fraction of a trace width, and for layer-to-layer
-                 registration to hold across a whole stack — traces, vias, then more dielectric landing on
-                 top. Headroom is what buys us fine pitch. Worth repeating the project's own caveat:
-                 resolution is not accuracy, and absolute accuracy is meaningfully worse. For deposition
-                 inside a single fine-stage workspace, repeatability matters more than global absolute
-                 accuracy. If we add a coarse stage to cover the full build area, each working region will
-                 need to be registered back to fiducials on the part rather than relying on the coarse
-                 stage alone.</li>
-             <li><strong>Cost and procurement risk.</strong> Off-the-shelf NEMA-17 steppers, a Raspberry Pi
-                 microcontroller board, commodity driver modules, a carrier PCB requiring no SMD assembly,
-                 and structural parts we can print or mill. Commercial sub-micron XYZ stages start in the
-                 four figures and climb from there. The design relies largely on commodity and locally
-                 fabricable parts, which keeps procurement risk and replacement cost low during
-                 prototyping — and integrating precision motion with high-temperature processing
-                 guarantees we'll find some failures to replace.</li>
-             <li><strong>It already speaks our language.</strong> G-code over USB serial plus a Python API,
-                 so we don't write a motion planner. And the current firmware puts PWM tool outputs
-                 <em>inside</em> the planner — dispenser on/off timed by the motion queue rather than by the
-                 host — which is exactly the primitive a paste extruder needs.</li>
-             <li><strong>It's a maintained project, not a dead repo.</strong> ~1.7k stars, 240 forks, an
-                 active Discord, and hardware now at v4.0 with the earlier ball-joint and homing problems
-                 already found and fixed by someone other than us.</li>
-           </ul>
-
-           <strong>Licensing, since we're building on someone else's design.</strong> It's MIT, and unusually
-           the license text reaches past software to the hardware design, documentation, and concept —
-           requiring the notice to travel with derivative works built on the presented concepts and
-           arrangements, even where the original design files aren't used directly. Easy enough to honor:
-           the attribution ships with our documentation. Worth being precise about the limit, though,
-           because MIT is easy to over-read — it's a copyright grant, not a patent license.
-           Parallel-kinematic stages and encoder interpolation are decades of prior art, so we aren't
-           expecting trouble, but that's a question to answer properly on its own timeline rather than one
-           that gates a prototype. Our own defensible ground is the co-fire process, not the stage.
-
-           <strong>Open item: the full motion architecture.</strong> This is a fine-positioning stage, and
-           its travel is a fraction of the 200 × 200&nbsp;mm build area on our concept spec. We've been
-           running the kinematics through its range in CAD to find where the linkages collide, since
-           self-collision — not motor travel — is what really bounds the usable working volume on a parallel
-           mechanism. Three ways out: a coarse XY stage carries the platen underneath, the build area comes
-           down, or the manipulator geometry gets modified. We haven't chosen, and we'd rather write that
-           down than discover it later.
-
-           <strong>Kiln tests on our borosilicate glass filament: a number and a problem.</strong>
-           We measured roughly <strong>10% linear shrinkage</strong> in the fired glass coupon. That gives us
-           a provisional geometry-compensation factor, but it does not yet tell us how buried silver traces
-           will behave. The next coupons will measure shrinkage independently in X, Y and Z and compare the
-           final conductor dimensions against the surrounding glass.<!-- TODO before publishing: add the real
-           before/after here, e.g. "One coupon measured NN.N mm before firing and NN.N mm afterward, about
-           N.N% linear shrinkage." A measured pair is far more persuasive than "roughly 10%." Do not
-           publish invented numbers. -->
-
-           What matters next isn't the magnitude, it's the consistency. Uniform, repeatable shrinkage is
-           arithmetic. <strong>Differential</strong> shrinkage — the glass pulling at a different rate than
-           the silver in the same fire — is what cracks parts and opens conductors, and it's the whole reason
-           we've carried post-fire metallization as a documented fallback since June. That mismatch is still
-           unmeasured. It's next on the bench.
-
-           Standardizing on IPC-7351 Nominal land patterns gives us a consistent starting geometry. We can
-           then apply process-specific compensation to it rather than redesigning each component footprint
-           independently.
-
-           <strong>The problem alongside the number is that fired parts are extremely brittle.</strong>
-           Glassy, unforgiving, cracks if you look at it wrong. So the next work block is mechanical
-           durability, and we're separating that failure into firing schedule, residual porosity, geometry,
-           surface flaws and handling conditions before assuming which one it is. We'll test whether
-           annealing, surface sealing or a revised firing cycle improves strength before committing to
-           another permanent process step.
-
-           Pressure-assisted firing stays an <strong>experimental variable rather than a fixed product
-           specification</strong>. Initial testing will be coupon-scale, because required force rises with
-           area fast enough to dominate the machine design, and we still need to establish whether pressure
-           improves bonding without distorting traces or fracturing the glass.
-
-           <strong>And the functional benchy gets solderable pads.</strong> Continuing from the July 19 plan:
-           the boat is printed in the glass filament, and the build is silver paste routed
-           <em>internally</em> through the part, breaking out to pads on the outer surface so we can solder
-           real SMT components onto it. At that point it stops being a demo of a printed board and starts
-           being a circuit board that was never a board.
-
-           One known risk there is solder leaching at exposed pure-silver pads. We therefore expect a
-           leach-resistant Ag-Pd or Ag-Pt termination on external pads while keeping
-           higher-conductivity silver for the buried traces. Pad metallurgy, solder alloy, temperature and
-           dwell time get qualified together rather than one at a time. And a brittle glass-ceramic part
-           meeting a hot iron wants a preheat, not thermal shock.`,
-    link: { href:'https://github.com/0x23/MicroManipulatorStepper', label:'Open Micro-Manipulator on GitHub' },
-    images: [
-      {
-        src:'assets/concept-poster-2026-07-24.png',
-        alt:'Concept poster for the PrometheusPCB all-in-one desktop ceramic PCB system, showing the machine, the print-dry-press-co-fire sequence, the integrated press and furnace, and key specifications.',
-        caption:'Concept poster for the all-in-one system, refined with AI assistance — print, dry, press, co-fire, in one enclosure. This is a render of the machine we are building, not a photo of a finished one, and the specifications on it are targets rather than measured results.',
-        wide:true
-      },
-      {
-        src:'assets/micromanipulator-2026-07-24.jpg',
-        alt:'The Open Micro-Manipulator assembled on a desk: black printed frame, three stepper motors with white flexure arms, and a Raspberry Pi microcontroller board with stepper drivers.',
-        caption:'The Open Micro-Manipulator (0x23) on the bench — parallel kinematics, NEMA-17 steppers, closed-loop controller. This is the fine-motion platform PrometheusPCB builds on.'
-      },
-      {
-        src:'assets/micromanipulator-collision-2026-07-24.gif',
-        alt:'Animated CAD study of the micro-manipulator kinematics sweeping through its range of motion, showing the linkage rods, lever arms and ball-joint chains moving and where the mechanism runs into itself.',
-        caption:'CAD motion study of the kinematics through its range — where the linkages run into each other is what actually bounds the usable working volume, and therefore what the motion architecture has to solve.',
-        wide:true
-      },
-      {
-        src:'assets/benchy-green-2026-07-24.jpg',
-        alt:'A 3DBenchy boat printed in borosilicate glass-filled filament, matte off-white, sitting on a desk mat.',
-        caption:'3DBenchy printed in the borosilicate glass filament — the test article for the internally-routed silver build.'
-      },
-      {
-        src:'assets/kiln-fire-2026-07-24.jpg',
-        alt:'A small stainless bench kiln with its door open, showing a fired dark test article on white refractory board inside, controller reading temperature.',
-        caption:'Bench kiln with a fired test article inside — the firing setup behind the shrinkage and brittleness results.'
-      },
-      {
-        src:'assets/shrinkage-calipers-2026-07-24.jpg',
-        alt:'Digital calipers measuring a fired test article on a desk.',
-        caption:'Post-fire dimensional check. Roughly 10% linear shrinkage in the fired glass — a provisional compensation factor, not yet a characterized one.'
-      }
-    ]
-  },
-
-  {
-    date: '2026-07-19',
-    type: 'update',
-    title: 'Next target: a functional 3DBenchy for YC',
-    body: `<strong>Research phase done — now we build.</strong> The material and process questions
-           we could settle on paper are settled; the next move is to make something real and put it
-           in front of people.
-
-           Our first functional-object prototype is a 3D-printed <strong>3DBenchy</strong> (the
-           standard 3D-printing benchmark boat) with conductive <strong>traces and vias routed
-           inside the model itself</strong>, and LEDs mounted on the outside surface, lit through
-           the wiring buried in the print.
-
-           This first one is hand-built on purpose. Instead of waiting on a finished machine, we run
-           the process ourselves, one step at a time — 3D-print the part, apply the conductor ink by
-           hand into the channels, then co-fire it. Doing each step individually is how we prove the
-           full sequence works end to end; <strong>folding those three steps into one automated pass
-           is exactly what the machine is for.</strong>
-
-           The point isn't the boat — it's the proof. Once the conductors live inside the printed
-           geometry, the "circuit board" stops having to be a board at all: it can be any shape the
-           part already is. Target: finished by <strong>July 26</strong> to anchor a Y Combinator
-           application — a concrete milestone in hand, plus the bigger picture of where a machine
-           that prints electronics <em>inside</em> the object can go.
-
-           <strong>Groundwork behind it.</strong> Repositioned the whole site around printed
-           passives: the machine isn't just a PCB printer — it forms resistors, capacitors, and
-           inductors directly in the ceramic layers, so the bulk of a board's BOM is fabbed, not
-           placed. And for the parts we'll still place by hand, standardized on <strong>IPC-7351</strong>
-           footprints (Nominal (N) first — the industry default), to compensate later for our line
-           width and shrinkage. First passive targets: 0402 / 0603 / 0805 R and C.`
-  },
-
-  {
-    date: '2026-07-15',
-    type: 'milestone',
-    title: 'First silver ink ordered — and a coupon to measure it',
-    body: `First atoms in motion. We ordered our first <strong>silver conductor ink</strong> — the
-           metal that becomes the traces once it's printed and fired — and designed a dedicated
-           <strong>trace-thickness test coupon</strong> to characterize it.
-
-           The coupon (pictured) is a set of straight traces stepped across a range of widths, each
-           capped with probe pads at both ends. Print it, co-fire it, then measure: how much a fired
-           trace <strong>shrinks</strong> from its drawn size, and what the final geometry does to
-           <strong>conductivity and resistance</strong>.
-
-           That's the ground truth the rest of the process needs. Once we know the shrinkage factor
-           and the sheet resistance of a real fired trace, we can compensate the drawn geometry to
-           hit target dimensions and trust the electrical numbers — the same compensation the printed
-           footprints and passives will lean on.`,
-    image: {
-      src:'assets/test-coupon-2026-07-15.jpg',
-      alt:'CAD view of the trace-thickness test coupon: two boards of straight traces stepped across a range of widths, each trace ending in circular probe pads.',
-      caption:'TraceThickness test coupon (ProPCB) — traces stepped across widths with probe pads at each end, for measuring fired shrinkage and trace resistance.'
-    }
-  },
-
-  {
-    date: '2026-07-01',
-    type: 'milestone',
-    title: 'Julian Stoller joined as co-founder',
-    body: `Picked up a co-founder: <strong>Julian Stoller</strong>. Julian brings deep
-           additive-manufacturing expertise — the deposition and process side of building a machine
-           like this — which pairs directly with the EE/ME side of the work. From here we're
-           tackling PrometheusPCB together.`,
-    link: { href:'https://www.linkedin.com/in/julian-stoller-394a16166/', label:'Julian on LinkedIn' }
-  },
-
-  {
-    date: '2026-06-24',
-    type: 'decision',
-    title: 'Post-fire metallization as the documented fallback',
-    body: `Committed to carrying a backstop for the co-fire shrinkage-mismatch risk: print
-           and fire the ceramic first, then metallize afterward. Costs some density and
-           layer count, but it sidesteps the mismatch entirely — so the program isn't
-           betting everything on cracking constrained sintering on day one.`
-  },
-
-  {
-    date: '2026-06-10',
-    type: 'decision',
-    title: 'LTCC over HTCC — staying under 900 °C',
-    body: `Chose low-temperature co-fired ceramic (850–900 °C) over HTCC (1400–1600 °C).
-           The LTCC window sits just below silver's melting point, which is what lets us
-           co-fire silver, copper, and gold — the low-resistivity conductors you actually
-           want for RF and high-speed digital. HTCC would force refractory metals at ~10×
-           the resistivity. Everything downstream follows from staying in that window.`,
-    link: { href:'/technology', label:'The reasoning, in the technical brief' }
-  },
-
-  {
-    date: '2026-05-28',
-    type: 'milestone',
-    title: 'Backed by TTU JumpStart + NSF I-Corps',
-    body: `PrometheusPCB picked up Texas Tech Innovation Hub JumpStart funding and an NSF
-           I-Corps customer-discovery grant — enough room to start chasing the gap now
-           instead of someday. Kicked off customer discovery with hardware teams and labs.`
-  },
-
-  {
-    date: '2026-05-12',
-    type: 'milestone',
-    title: 'Project kickoff',
-    body: `Started PrometheusPCB. The thesis: pull ceramic fabrication onto the bench so the
-           wait between revisions stops being the bottleneck. Solo for now, and already
-           looking for a materials co-founder who reads the shrinkage problem as a challenge
-           rather than a dealbreaker.`
-  }
-
-];
-
-/* ---- render (no dependencies) ------------------------------------------- */
 (function(){
-  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var TYPES  = ['milestone','update','research','decision'];
-
-  function fmtDate(iso){
-    var p = String(iso).split('-');
-    if(p.length < 3) return iso;
-    return MONTHS[parseInt(p[1],10)-1] + ' ' + parseInt(p[2],10) + ', ' + p[0];
-  }
-  function paras(body){
-    // split on blank lines -> paragraphs; content may contain basic HTML
-    return String(body).trim().split(/\n\s*\n/).map(function(chunk){
-      return '<p>' + chunk.replace(/\s*\n\s*/g,' ').trim() + '</p>';
-    }).join('');
-  }
-
-  var sorted = ENTRIES.slice().sort(function(a,b){ return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
-
-  // meta line
-  var meta = document.getElementById('logMeta');
-  if(sorted.length){
-    meta.textContent = sorted.length + ' ' + (sorted.length===1?'entry':'entries') + ' · last updated ' + fmtDate(sorted[0].date);
-  } else {
-    meta.textContent = 'No entries yet.';
-  }
-
-  // filters (with counts)
-  var counts = { all: sorted.length };
-  TYPES.forEach(function(t){ counts[t] = sorted.filter(function(e){return e.type===t;}).length; });
+  var TYPES = ['milestone','update','research','decision'];
+  var tl = document.getElementById('timeline');
   var filterWrap = document.getElementById('filters');
-  var buttons = [{k:'all',label:'All'}].concat(TYPES.map(function(t){
-    return { k:t, label: t.charAt(0).toUpperCase()+t.slice(1) };
-  }));
-  buttons.forEach(function(b, i){
-    if(b.k!=='all' && counts[b.k]===0) return; // hide empty type filters
-    var btn = document.createElement('button');
-    btn.className = 'filter' + (b.k==='all' ? ' active' : '');
-    btn.setAttribute('data-filter', b.k);
-    btn.innerHTML = b.label + '<span class="count">' + counts[b.k] + '</span>';
-    btn.addEventListener('click', function(){ setFilter(b.k); });
-    filterWrap.appendChild(btn);
+  if(!tl || !filterWrap) return;
+
+  var entries = [].slice.call(tl.querySelectorAll('.entry'));
+  if(!entries.length) return;
+
+  var counts = { all: entries.length };
+  TYPES.forEach(function(t){
+    counts[t] = entries.filter(function(el){ return el.getAttribute('data-type')===t; }).length;
   });
 
-  // timeline
-  var tl = document.getElementById('timeline');
-  tl.innerHTML = sorted.map(function(e, i){
-    var link = e.link && e.link.href
-      ? '<a class="entry-link" href="'+e.link.href+'">'+ (e.link.label||'Read more') +' &rarr;</a>'
-      : '';
-    function figure(im){
-      return '<figure class="entry-figure'+(im.wide?' wide':'')+'">'
-        + '<img src="'+im.src+'" alt="'+String(im.alt||'').replace(/"/g,'&quot;')+'" loading="lazy" onerror="this.closest(\'.entry-figure\').style.display=\'none\'">'
-        + (im.caption ? '<figcaption>'+im.caption+'</figcaption>' : '')
-        + '</figure>';
-    }
-    var shots = (e.images && e.images.length ? e.images : (e.image ? [e.image] : []))
-                  .filter(function(im){ return im && im.src; });
-    var img = shots.length === 0 ? ''
-      : shots.length === 1 ? figure(shots[0])
-      : '<div class="entry-gallery">' + shots.map(figure).join('') + '</div>';
-    return ''
-      + '<article class="entry t-'+e.type+'" data-type="'+e.type+'" style="animation-delay:'+Math.min(i*60,480)+'ms">'
-      +   '<div class="entry-meta">'
-      +     '<span class="entry-date">'+fmtDate(e.date)+'</span>'
-      +     '<span class="entry-tag">'+e.type+'</span>'
-      +   '</div>'
-      +   '<h3 class="entry-title">'+e.title+'</h3>'
-      +   '<div class="entry-body">'+paras(e.body)+'</div>'
-      +   img
-      +   link
-      + '</article>';
-  }).join('');
+  var empty = document.createElement('p');
+  empty.className = 'empty';
+  empty.style.display = 'none';
+  empty.textContent = 'No entries under this filter yet.';
+  tl.parentNode.insertBefore(empty, tl.nextSibling);
 
-  var empty = document.getElementById('empty');
   function setFilter(key){
-    var btns = filterWrap.querySelectorAll('.filter');
-    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-filter')===key); });
+    [].forEach.call(filterWrap.querySelectorAll('.filter'), function(b){
+      b.classList.toggle('active', b.getAttribute('data-filter')===key);
+      b.setAttribute('aria-pressed', b.getAttribute('data-filter')===key ? 'true' : 'false');
+    });
     var shown = 0;
-    tl.querySelectorAll('.entry').forEach(function(el){
+    entries.forEach(function(el){
       var match = (key==='all' || el.getAttribute('data-type')===key);
       el.style.display = match ? '' : 'none';
       if(match) shown++;
     });
     empty.style.display = shown ? 'none' : 'block';
   }
+
+  [{k:'all',label:'All'}].concat(TYPES.map(function(t){
+    return { k:t, label: t.charAt(0).toUpperCase()+t.slice(1) };
+  })).forEach(function(b){
+    if(b.k!=='all' && counts[b.k]===0) return;
+    var btn = document.createElement('button');
+    btn.className = 'filter' + (b.k==='all' ? ' active' : '');
+    btn.type = 'button';
+    btn.setAttribute('data-filter', b.k);
+    btn.setAttribute('aria-pressed', b.k==='all' ? 'true' : 'false');
+    btn.innerHTML = b.label + '<span class="count">' + counts[b.k] + '</span>';
+    btn.addEventListener('click', function(){ setFilter(b.k); });
+    filterWrap.appendChild(btn);
+  });
 })();
 </script>
 </body>
