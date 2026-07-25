@@ -97,6 +97,7 @@
     padding:13px 15px;border-radius:2px;
   }
   .capture input:focus{outline:2px solid var(--copper);outline-offset:0;border-color:var(--copper)}
+  .capture input.building{flex:1 1 100%}
   .capture button{
     background:var(--copper);color:var(--substrate);
     font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:14px;
@@ -436,11 +437,12 @@
     <span class="eyebrow">Beta · limited first run</span>
     <h2>Bring the fab to your bench.</h2>
     <div class="capture" id="form-foot">
+      <input type="text" class="building" placeholder="What are you building? (optional)" aria-label="What are you building? (optional)">
       <input type="email" placeholder="you@lab.com" aria-label="Email address" required>
       <button type="button" onclick="joinList('foot')">Join the beta waitlist</button>
     </div>
     <p class="capture-ok" id="ok-foot">On the list. We'll reach out before the first units ship. ⚡</p>
-    <p class="capture-note">Tell us what you're building when we follow up — early users help shape the machine.</p>
+    <p class="capture-note">The optional line helps more than you'd think — what early users are building shapes the machine.</p>
   </div>
 </section>
 
@@ -494,9 +496,11 @@
   function joinList(which){
     var form = document.getElementById('form-' + which);
     var ok = document.getElementById('ok-' + which);
-    var input = form.querySelector('input');
+    var input = form.querySelector('input[type="email"]');
     var button = form.querySelector('button');
     var val = (input.value || '').trim();
+    var extraEl = form.querySelector('input.building');
+    var extra = extraEl ? (extraEl.value || '').trim() : '';
 
     if(!val || val.indexOf('@') === -1){
       input.focus();
@@ -510,7 +514,9 @@
     fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: val, source: 'prometheuspcb.com — beta waitlist' })
+      body: JSON.stringify(extra
+        ? { email: val, building: extra, source: 'prometheuspcb.com — beta waitlist' }
+        : { email: val, source: 'prometheuspcb.com — beta waitlist' })
     })
     .then(function(res){
       if(res.ok){
