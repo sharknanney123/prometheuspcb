@@ -17,7 +17,8 @@
     --copper-bright:#E0A05C;  /* lighter copper */
     --ignition:#FF6A1A;       /* the one fire moment */
     --ink:#ECE3D6;            /* warm off-white text */
-    --ink-dim:#7E939B;        /* cool muted */
+    --ink-dim:#7E939B;
+    --ink-mid:#B7C6CB;        /* cool muted */
     --via:#2A4C56;
     --max:1140px;
   }
@@ -45,7 +46,7 @@
   /* ---- nav ---- */
   header.nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(11,24,28,.78);
+    background:rgba(11,24,28,.90);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--panel-edge);
   }
@@ -54,15 +55,26 @@
   .brand .mark{width:22px;height:22px;flex:none}
   .brand .pcb{color:var(--copper)}
   .nav-cta{
-    font-family:"IBM Plex Mono",monospace;font-size:13px;
-    border:1px solid var(--copper);color:var(--copper-bright);
-    padding:8px 16px;border-radius:2px;transition:background .18s,color .18s;
+    font-family:"IBM Plex Mono",monospace;font-size:13.5px;font-weight:500;
+    background:var(--copper);border:1px solid var(--copper);color:var(--substrate);
+    padding:8px 17px;border-radius:2px;transition:background .18s,border-color .18s;
   }
-  .nav-cta:hover{background:var(--copper);color:var(--substrate)}
+  .nav-cta:hover{background:var(--copper-bright);border-color:var(--copper-bright)}
   @media(max-width:560px){.nav-inner{height:auto;min-height:64px;flex-wrap:wrap;row-gap:12px;padding:12px 0}}
-  .nav-right{display:flex;align-items:center;gap:18px}
-  .nav-link{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.04em;transition:color .18s}
-  .nav-link:hover{color:var(--copper-bright)}
+  .nav-right{display:flex;align-items:center;gap:20px}
+  .nav-link{
+    position:relative;font-family:"IBM Plex Mono",monospace;font-size:13.5px;
+    color:var(--ink-mid);letter-spacing:.04em;padding:7px 2px;transition:color .18s;
+  }
+  .nav-link::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--copper);
+    transform:scaleX(0);transform-origin:left;transition:transform .22s ease;
+  }
+  .nav-link:hover{color:var(--ink)}
+  .nav-link:hover::after{transform:scaleX(1)}
+  .nav-link.active{color:var(--copper-bright)}
+  .nav-link.active::after{transform:scaleX(1);background:var(--ignition)}
+  @media (prefers-reduced-motion:reduce){.nav-link::after{transition:none}}
 
   /* ---- hero ---- */
   .hero{position:relative;padding:96px 0 88px;overflow:hidden}
