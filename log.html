@@ -100,6 +100,16 @@
   .entry-figure img{width:100%;height:auto;display:block}
   .entry-figure figcaption{padding:10px 14px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.03em;color:var(--ink-dim);line-height:1.5;border-top:1px solid var(--panel-edge)}
 
+  /* multi-image entries: grid of figures, one per photo */
+  .entry-gallery{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));
+    gap:14px;margin:16px 0 2px;max-width:760px;align-items:start;
+  }
+  .entry-gallery .entry-figure{margin:0;max-width:none;height:100%;display:flex;flex-direction:column}
+  .entry-gallery .entry-figure img{flex:none}
+  .entry-gallery .entry-figure figcaption{flex:1}
+  .entry-figure.wide{grid-column:1/-1}
+
   /* type accents */
   .t-milestone{--accent:#FF6A1A}
   .t-update{--accent:#C9803F}
@@ -196,6 +206,15 @@
      image: { src:'/assets/photo.png', alt:'describe it', caption:'shown under the image' }  // OPTIONAL — drop the file in /assets/; a missing file just hides itself
    },
 
+   For MORE THAN ONE photo, use `images` instead of `image` — it renders as a grid:
+
+     images: [
+       { src:'assets/a.png', alt:'...', caption:'...', wide:true },  // wide:true spans the full grid width
+       { src:'assets/b.jpg', alt:'...', caption:'...' }
+     ]
+
+   `image` still works for single photos. Missing files hide themselves either way.
+
    Types & their color: milestone = orange (big moments), update = copper
    (weekly progress), research = teal (findings/experiments), decision = gold
    (choices + the reasoning behind them).
@@ -204,6 +223,136 @@
    and add new ones on top as you go.
    ========================================================================== */
 var ENTRIES = [
+
+  {
+    date: '2026-07-24',
+    type: 'update',
+    title: 'Motion platform locked in, and the first honest look at fired glass',
+    body: `<strong>For the MVP we're leaning on open source wherever someone has already solved a
+           problem better than we would, and this is the clearest example of it.</strong> The machine will
+           move on
+           <a href="https://github.com/0x23/MicroManipulatorStepper">0x23's Open Micro-Manipulator</a>,
+           an open-source parallel-kinematic XYZ platform. Building a precision stage from scratch is a
+           year of work that isn't our year of work — the hard problem here is the ceramic, not the
+           gantry. Expect more decisions shaped this way: where a mature open project already covers a
+           subsystem, we integrate it and spend our own time on the process.
+
+           <strong>Why this one.</strong>
+           <ul>
+             <li><strong>Precision where it actually costs us.</strong> The platform commands steps down
+                 to ~50&nbsp;nm, from a magnetic-gearing trick that interpolates low-cost rotary encoders
+                 about 30× under a 30&nbsp;kHz closed loop. We don't need 50&nbsp;nm. What we need is for
+                 placement error to be a small fraction of a trace width, and for layer-to-layer
+                 registration to hold across an entire stack — traces, vias, then more dielectric on top,
+                 all landing on each other. Headroom is what buys us fine pitch. Worth repeating the
+                 project's own caveat: resolution is not accuracy, and absolute accuracy is meaningfully
+                 worse. Fine by us — every feature is referenced to the same part on the same platen, so
+                 repeatability carries the process, not absolute position.</li>
+             <li><strong>Cost and lead time.</strong> Off-the-shelf NEMA-17 steppers, an RP2040, commodity
+                 driver modules, a carrier PCB that needs no SMD soldering, and structural parts we can
+                 print (or mill on a 3-axis, which the CAD already accounts for). Commercial sub-micron
+                 XYZ stages start in the four figures and climb from there. Everything here we can source
+                 in a week and replace at hobby prices when we break one — which, on a machine with a
+                 900&nbsp;°C furnace bolted next to it, we will.</li>
+             <li><strong>It already speaks our language.</strong> G-code over USB serial plus a Python API,
+                 so we don't write a motion planner. And the current firmware puts PWM tool outputs
+                 <em>inside</em> the planner — dispenser on/off timed by the motion queue rather than by the
+                 host — which is exactly the primitive a paste extruder needs.</li>
+             <li><strong>It's a maintained project, not a dead repo.</strong> ~1.7k stars, 240 forks, an
+                 active Discord, and hardware now at v4.0 with the earlier ball-joint and homing problems
+                 already found and fixed by someone other than us.</li>
+           </ul>
+
+           <strong>Licensing, since we're building on someone else's design.</strong> It's MIT, and unusually
+           the license text reaches past software to the hardware design, documentation, and concept —
+           requiring the notice to travel with derivative works built on the presented concepts and
+           arrangements, even where the original design files aren't used directly. Easy enough to honor:
+           the attribution ships with our documentation. Worth being precise about the limit, though,
+           because MIT is easy to over-read — it's a copyright grant, not a patent license.
+           Parallel-kinematic stages and encoder interpolation are decades of prior art, so we aren't
+           expecting trouble, but that's a question to answer properly on its own timeline rather than one
+           that gates a prototype. Our own defensible ground is the co-fire process, not the stage.
+
+           <strong>Open item we're flagging now:</strong> this is a fine-positioning stage, and its travel is
+           a fraction of the 200 × 200&nbsp;mm build area on our concept spec. We've been running the
+           kinematics through its range in CAD to find where the linkages collide, since self-collision — not
+           motor travel — is what really bounds the usable working volume on a parallel mechanism. Either a
+           coarse XY stage carries the platen underneath it, or the build area comes down. We'd rather write
+           that down than discover it later.
+
+           <strong>Kiln tests on our borosilicate glass filament: a number and a problem.</strong>
+           We measured roughly <strong>10% shrinkage</strong> through the fire. That's not a surprise — it's
+           about what sintering does — but it isn't a rounding error either, and everything downstream has to
+           carry it. A trace drawn at target comes out ~10% narrower and ~10% shorter than drawn, so geometry
+           gets scaled up before it's printed and every footprint gets compensated. Standardizing on
+           IPC-7351 Nominal footprints on the 19th was exactly so there'd be a defined baseline to
+           compensate <em>from</em>.
+
+           What matters next isn't the magnitude, it's the consistency. Uniform, repeatable 10% is
+           arithmetic. <strong>Differential</strong> shrinkage — the ceramic pulling at a different rate than
+           the silver in the same fire — is what cracks parts and opens conductors, and it's the whole reason
+           we've carried post-fire metallization as a documented fallback since June. Measuring that mismatch
+           on the trace coupons is the next thing on the bench.
+
+           The problem alongside it is that fired parts are <strong>extremely brittle</strong>. Glassy,
+           unforgiving, cracks if you look at it wrong. That has to be designed around rather than wished
+           away: minimum wall thickness, fillets instead of sharp internal corners, no unsupported spans,
+           slow ramp and soak and cool to keep thermal gradients down, and fixturing that never puts a fired
+           part in bending. It also has to survive the press step — 10&nbsp;MPa onto a brittle stack is a
+           number we'll have to earn, not assume.
+
+           <strong>So the next block of work is post-fire processing.</strong> A part that cracks in handling
+           isn't usable outside a lab. We're adding a post-fire pass — densification and surface treatment —
+           to get from "it fired and we know its shrinkage" to "you can bolt this into something and trust
+           it."
+
+           <strong>And the functional benchy gets solderable pads.</strong> Continuing from the July 19 plan:
+           the boat is printed in the glass filament, and the build is silver paste routed
+           <em>internally</em> through the part, breaking out to pads on the outer surface so we can solder
+           real SMT components onto it. At that point it stops being a demo of a printed board and starts
+           being a circuit board that was never a board.
+
+           One trap we already know about: fired silver dissolves into standard tin solder fast — the
+           leaching problem thick-film hybrids have dealt with for decades, usually by using Ag-Pd or Ag-Pt
+           terminations on anything you intend to solder to. Expect a different paste on the pads than in
+           the buried traces. And a brittle glass-ceramic part meeting a hot iron wants a preheat, not
+           thermal shock.`,
+    link: { href:'https://github.com/0x23/MicroManipulatorStepper', label:'Open Micro-Manipulator on GitHub' },
+    images: [
+      {
+        src:'assets/concept-poster-2026-07-24.png',
+        alt:'Concept poster for the PrometheusPCB all-in-one desktop ceramic PCB system, showing the machine, the print-dry-press-co-fire sequence, the integrated press and furnace, and key specifications.',
+        caption:'Concept poster for the all-in-one system, refined with AI assistance — print, dry, press, co-fire, in one enclosure. This is a render of the machine we are building, not a photo of a finished one.',
+        wide:true
+      },
+      {
+        src:'assets/micromanipulator-2026-07-24.jpg',
+        alt:'The Open Micro-Manipulator assembled on a desk: black printed frame, three stepper motors with white flexure arms, and an RP2040 controller board with stepper drivers.',
+        caption:'The Open Micro-Manipulator (0x23) on the bench — parallel kinematics, NEMA-17 steppers, RP2040 closed-loop controller. This is the motion platform PrometheusPCB builds on.'
+      },
+      {
+        src:'assets/micromanipulator-collision-2026-07-24.gif',
+        alt:'Animated CAD study of the micro-manipulator kinematics sweeping through its range of motion, showing the linkage rods, lever arms and ball-joint chains moving and where the mechanism runs into itself.',
+        caption:'CAD motion study of the kinematics through its range — where the linkages run into each other is what actually bounds the usable working volume.',
+        wide:true
+      },
+      {
+        src:'assets/benchy-green-2026-07-24.jpg',
+        alt:'A 3DBenchy boat printed in borosilicate glass-filled filament, matte off-white, sitting on a desk mat.',
+        caption:'3DBenchy printed in the borosilicate glass filament — the test article for the internally-routed silver build.'
+      },
+      {
+        src:'assets/kiln-fire-2026-07-24.jpg',
+        alt:'A small stainless bench kiln with its door open, showing a fired dark test article on white refractory board inside, controller reading temperature.',
+        caption:'Bench kiln with a fired test article inside — the firing setup behind the shrinkage and brittleness results.'
+      },
+      {
+        src:'assets/shrinkage-calipers-2026-07-24.jpg',
+        alt:'Digital calipers measuring a fired test article on a desk.',
+        caption:'Post-fire dimensional check on the calipers — roughly 10% linear shrinkage through the fire. That is the number every drawn dimension downstream now compensates for.'
+      }
+    ]
+  },
 
   {
     date: '2026-07-19',
@@ -366,11 +515,17 @@ var ENTRIES = [
     var link = e.link && e.link.href
       ? '<a class="entry-link" href="'+e.link.href+'">'+ (e.link.label||'Read more') +' &rarr;</a>'
       : '';
-    var img = e.image && e.image.src
-      ? '<figure class="entry-figure"><img src="'+e.image.src+'" alt="'+String(e.image.alt||'').replace(/"/g,'&quot;')+'" loading="lazy" onerror="this.closest(\'.entry-figure\').style.display=\'none\'">'
-        + (e.image.caption ? '<figcaption>'+e.image.caption+'</figcaption>' : '')
-        + '</figure>'
-      : '';
+    function figure(im){
+      return '<figure class="entry-figure'+(im.wide?' wide':'')+'">'
+        + '<img src="'+im.src+'" alt="'+String(im.alt||'').replace(/"/g,'&quot;')+'" loading="lazy" onerror="this.closest(\'.entry-figure\').style.display=\'none\'">'
+        + (im.caption ? '<figcaption>'+im.caption+'</figcaption>' : '')
+        + '</figure>';
+    }
+    var shots = (e.images && e.images.length ? e.images : (e.image ? [e.image] : []))
+                  .filter(function(im){ return im && im.src; });
+    var img = shots.length === 0 ? ''
+      : shots.length === 1 ? figure(shots[0])
+      : '<div class="entry-gallery">' + shots.map(figure).join('') + '</div>';
     return ''
       + '<article class="entry t-'+e.type+'" data-type="'+e.type+'" style="animation-delay:'+Math.min(i*60,480)+'ms">'
       +   '<div class="entry-meta">'
