@@ -90,6 +90,7 @@
   .founders{display:grid;grid-template-columns:1fr;gap:18px}
   @media(min-width:760px){.founders{grid-template-columns:1fr 1fr}}
   .founder-card{border:1px solid var(--panel-edge);border-radius:4px;background:var(--panel);padding:30px 28px;display:flex;flex-direction:column;gap:14px}
+  .founder-card .headshot{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:4px;border:1px solid var(--panel-edge);display:block;margin-bottom:6px}
   .founder-card .role{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper)}
   .founder-card h3{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-.02em}
   .founder-card p{color:#C3CDD0;font-size:.98rem}
@@ -192,6 +193,7 @@
       </div>
       <div class="founders">
         <article class="founder-card reveal">
+          <img class="headshot" src="assets/founder-aaron.jpg" alt="Aaron Wang, grinning through a brick-built gold picture frame" loading="lazy" onerror="this.style.display='none'">
           <span class="role">Co-founder · Electrical Systems</span>
           <h3>Aaron Wang</h3>
           <p>Electrical systems engineering at Texas Tech — the circuits, firmware, and control half of a machine that's equal parts electronics and precision motion. Between his electrical systems and Julian's mechanical engineering, the founding team spans the seam this machine lives on.</p>
@@ -199,6 +201,7 @@
           <a class="flink" href="https://www.linkedin.com/in/aaron-wang-265423220/">Aaron on LinkedIn &rarr;</a>
         </article>
         <article class="founder-card reveal">
+          <img class="headshot" src="assets/founder-julian.jpg" alt="Julian Stoller" loading="lazy" onerror="this.style.display='none'">
           <span class="role">Co-founder · Mechanical Engineering</span>
           <h3>Julian Stoller</h3>
           <p>Mechanical engineering at Cornell, with the additive-manufacturing depth the machine is built on. He took first place among 81 entries in SME's 2025 Digital Manufacturing Contest with a rapidly deployable concentrated-solar and water-distillation plant designed for additive manufacturing — patents pending — and won the hardware track at Cornell's Big Red Hacks with a parametric-CAD design.</p>
