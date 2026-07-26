@@ -203,7 +203,7 @@
   <section class="hero-sec">
     <div class="wrap">
       <span class="eyebrow reveal">The engineering thesis</span>
-      <h1 class="reveal">We don't print plastic. We print and <span class="glow">fire ceramic</span>.</h1>
+      <h1 class="reveal">Print the paste. <span class="glow">Fire the board</span>.</h1>
       <p class="lede reveal">The machine on the homepage runs on one technical bet: low-temperature co-fired ceramic, laid down as paste and fired on your bench. This page is the reasoning behind it — the material, the machine architecture, why the same process prints the passives in, and the single problem the whole thing turns on.</p>
       <p class="brief-note reveal">An engineering brief for technical reviewers — reasoning and figures, not a finished spec.</p>
 
@@ -324,12 +324,12 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">The machine</span>
-        <h2>Paste, not filament.</h2>
+        <h2>The deposition primitive is paste.</h2>
       </div>
       <div class="body reveal">
         <p>A fused-filament printer melts a thermoplastic strand. Co-fired ceramic isn't a thermoplastic — it's a ceramic-and-glass powder suspended in a binder, and the conductor is a separate metal-loaded paste laid down in the same build. Neither one feeds through an FFF hot end.</p>
         <p>The correct primitive is <strong>direct ink writing</strong> — robocasting: extrude a loaded paste through a fine nozzle under controlled rheology, place dielectric and conductor in the same pass, then co-fire the green part into a solid board. That fork in the road is what separates a real ceramic process from the FFF-based "PCB printer" projects that stall on materials.</p>
-        <p>One note of candor, because the <a href="/log" style="color:var(--copper-bright)">build log</a> shows filament on our own bench: today's hand-run coupons and test articles are FFF-printed from glass-filled filament — the fastest way to a fireable green body before the paste toolhead exists, and a deliberately conservative one. A filament body is the crudest green body this process will ever see: more binder to burn out, lower glass loading, more residual porosity than a paste we'd formulate. What we're testing is whether an LTCC-style board can be made in-house at all — and if a circuit survives co-firing in that body, the test has proven the floor, not the ceiling. Moving to paste is an upgrade with decades of production LTCC behind it, not a new open question. The conductor already goes down as dispensed ink; the machine is, and stays, a paste process.</p>
+        <p>Because the <a href="/log" style="color:var(--copper-bright)">build log</a> shows filament on our own bench: today's hand-run coupons and test articles are FFF-printed from glass-filled filament — the fastest way to a fireable green body before the paste toolhead exists, and a deliberately conservative one. A filament body is the crudest green body this process will ever see: more binder to burn out, lower glass loading, more residual porosity than a paste we'd formulate. What we're testing is whether an LTCC-style board can be made in-house at all — and if a circuit survives co-firing in that body, the test has proven the floor, not the ceiling. Moving to paste is an upgrade with decades of production LTCC behind it, not a new open question. The conductor already goes down as dispensed ink; the machine is, and stays, a paste process.</p>
       </div>
 
       <!-- FIG 02 — FFF vs DIW -->
@@ -413,7 +413,7 @@
       <p class="eyebrow cap reveal">FIG_025 · the three passive primitives · copper = conductor, teal = dielectric</p>
 
       <aside class="callout reveal" style="border-left-color:var(--copper)">
-        <p class="tag" style="color:var(--copper)">The honest caveat</p>
+        <p class="tag" style="color:var(--copper)">The caveat</p>
         <p>Printed passives start loose. A commercial chip resistor ships at 1% or better; a printed one lands roughly <strong>10–20% off</strong> until it's laser-trimmed or closed-loop corrected, and a printed capacitor holds far less capacitance per area than an MLCC. So the first target isn't every part — it's the long tail of loose-tolerance pull-ups, terminations, and the small-value coupling and filter caps a printed plate can actually deliver. Bulk decoupling, tight-tolerance and high-value parts, and every active device, stay on the placement list — dropped onto <strong>standard IPC-7351 footprints</strong> the machine prints for you. And embedding is per-part, not all-or-nothing: a value you're still tuning stays a printed footprint with a discrete on it, and gets buried once it settles. When a respin costs an afternoon instead of a fab cycle, changing an embedded value is a reprint — not a rework you've lost the option of.</p>
       </aside>
     </div>
@@ -428,7 +428,7 @@
       </div>
       <div class="body reveal">
         <p>Fire a green board and both materials densify and shrink — but not by the same amount, and not at the same rate. Control that <strong>co-firing shrinkage mismatch</strong> and the board comes out dimensionally true. Lose control of it and you get warpage, delamination, and broken traces.</p>
-        <p>Production LTCC fabs hold in-plane shrinkage to about ±0.2% using constrained-sintering techniques. Reproducing that kind of control in a desktop-scale machine is the central unsolved problem — and we'd rather name it than bury it. It has company on the bench, too: the <a href="/log" style="color:var(--copper-bright)">build log</a> tracks fired-part brittleness alongside it as a second measured materials problem.</p>
+        <p>Production LTCC fabs hold in-plane shrinkage to about ±0.2% using constrained-sintering techniques. Reproducing that kind of control in a desktop-scale machine is the central unsolved problem of this program. It has company on the bench, too: the <a href="/log" style="color:var(--copper-bright)">build log</a> tracks fired-part brittleness alongside it as a second measured materials problem.</p>
       </div>
 
       <!-- FIG 03 — shrinkage -->
@@ -476,7 +476,7 @@
           <span class="who">PrometheusPCB</span>
           <h3>A ceramic loop on your desk</h3>
           <div class="metric">hours · open</div>
-          <p>A ceramic iteration loop priced for a team, not a department — passives printed in, not placed — on an open, modular architecture you can build on instead of a sealed box.</p>
+          <p>A ceramic iteration loop a single team can afford — passives printed in — on an open, modular architecture you can build on instead of a sealed box.</p>
         </div>
       </div>
     </div>
@@ -490,7 +490,7 @@
         <h2>Funded, two founders, and building the first prototype.</h2>
       </div>
       <div class="body reveal">
-        <p>PrometheusPCB is backed by the Texas Tech Innovation Hub JumpStart grant and NSF I-Corps customer-discovery funding. Aaron Wang (electrical systems + ME) and Julian Stoller (ME) are the founding team — and with the paper research settled, we're heads-down building the first hand-run prototype and turning the open questions into bench experiments, while we keep talking to the teams and labs who'd use it.</p>
+        <p>PrometheusPCB is backed by the Texas Tech Innovation Hub JumpStart grant and NSF I-Corps customer-discovery funding. Aaron Wang (electrical systems + ME) and Julian Stoller (ME) are the founding team — and we're past the literature phase: heads-down building the first hand-run prototype and turning the open questions into bench experiments, while we keep talking to the teams and labs who'd use it.</p>
         <p>The seat we're still filling is deep materials. If you work in <strong>ceramic processing, paste rheology, or constrained sintering</strong> — and the shrinkage problem above reads as a challenge rather than a dealbreaker — we should talk.</p>
       </div>
       <div class="cta-row reveal">

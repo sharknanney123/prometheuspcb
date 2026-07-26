@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PrometheusPCB — Desktop additive electronics fabrication</title>
-<meta name="description" content="A desktop machine that prints functional multi-layer boards with the resistors, capacitors, and inductors formed right in the ceramic layers — so most of your BOM is fabbed, not placed, and you iterate in-house in hours.">
+<meta name="description" content="A desktop machine for printing functional multi-layer boards with the resistors, capacitors, and inductors formed right in the ceramic layers. Most of your BOM gets fabbed, not placed, and you iterate in-house in hours.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -237,7 +237,7 @@
     <div>
       <span class="eyebrow">Desktop additive electronics fabrication</span>
       <h1>Working boards — with the passives printed <span class="glow">in</span>.</h1>
-      <p class="lede">PrometheusPCB is a desktop machine that additively prints functional, multi-layer boards <strong>with the resistors, capacitors, and inductors formed right in the layers</strong> — so most of your BOM is fabbed, not placed, and you iterate in-house in hours instead of mailing designs to a fab.</p>
+      <p class="lede">PrometheusPCB is a desktop machine we're building that prints functional, multi-layer boards <strong>with the resistors, capacitors, and inductors formed right in the layers</strong>. Most of your BOM gets fabbed, not placed, and you iterate in-house in hours instead of mailing designs to a fab.</p>
 
       <div class="capture" id="form-hero">
         <input type="email" placeholder="you@lab.com" aria-label="Email address" required>
@@ -295,10 +295,10 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">The problem</span>
-      <h2>The iteration loop is where hardware goes to die.</h2>
+      <h2>Every board revision costs you a week.</h2>
     </div>
     <p style="max-width:62ch;color:#C3CDD0;font-size:1.05rem">
-      Software engineers ship a change and see it in seconds. Hardware engineers ship a board to a fab and see it next week — then find the one mistake and start the clock over. Every revision is a multi-day round trip. PrometheusPCB collapses that loop into hours on your own bench, so the bottleneck stops being logistics and goes back to being your ideas. And the stakes are rising: the new wave of hardware pushing into the physical world — drones, robotics, sensors, defense systems — is being built by small teams who live or die by this loop.
+      Software engineers ship a change and see it in seconds. Hardware engineers ship a board to a fab and see it next week — then find the one mistake and start the clock over. Every revision is a multi-day round trip. PrometheusPCB is built to collapse that loop into hours on your own bench, so the bottleneck is your ideas again, not logistics. And the stakes are rising: the new wave of hardware pushing into the physical world — drones, robotics, sensors, defense systems — is being built by small teams who live or die by this loop.
     </p>
   </div>
 </section>
@@ -313,10 +313,10 @@
     <div class="leap-grid">
       <div>
         <p style="color:#C3CDD0;font-size:1.05rem;max-width:52ch">
-          Resistors and capacitors are the majority of the components on a typical board — often 70–90% of the part count. A desktop machine that only prints copper still leaves you hand-placing all of them. Co-fired ceramic doesn't: the same process that lays down traces can form <strong style="color:var(--ink)">resistors, capacitors, and inductors directly inside the layers</strong> — a trick production LTCC has used for decades. The new part isn't the physics; it's having it on your bench.
+          Resistors and capacitors are the majority of the components on a typical board — often 70–90% of the part count. A desktop machine that only prints copper still leaves you hand-placing all of them. Co-fired ceramic doesn't: the same process that lays down traces can form <strong style="color:var(--ink)">resistors, capacitors, and inductors directly inside the layers</strong> — production LTCC has done this for decades, inside specialist fabs with long queues and high minimums. We're putting the same process on a bench.
         </p>
         <ul class="leap-list">
-          <li><strong>Passives print in.</strong> R, L, and C are formed in-layer as the board is built — the bulk of your BOM is fabbed, not placed.</li>
+          <li><strong>Passives print in.</strong> R, L, and C are formed in-layer as the board is built, covering the bulk of your part count.</li>
           <li><strong>You place the silicon — and the picky parts.</strong> MCUs, ICs, connectors, crystals, and the few tight-tolerance passives land on standard IPC-7351 footprints the machine lays down for you.</li>
           <li><strong>Fewer parts, fewer joints.</strong> Delete the long tail of discrete passives and you delete most of the placement, soldering, and rework a revision costs.</li>
         </ul>
@@ -398,7 +398,7 @@
         <span class="who">PrometheusPCB</span>
         <h3>Built for the loop</h3>
         <div class="metric">hours</div>
-        <p>A desktop machine priced for a team, not a department. Functional multi-layer boards — passives printed in — between morning and afternoon, on the same bench you design at.</p>
+        <p>A desktop machine at a price a single team can justify. The target: a functional multi-layer board, passives printed in, between morning and afternoon — on the same bench you design at.</p>
       </div>
     </div>
   </div>
@@ -414,13 +414,13 @@
     <div class="cards">
       <div class="card">
         <span class="n">01</span>
-        <h3>Functional, not decorative</h3>
-        <p>Copper traces, multi-layer routing, and embedded R, L, and C that carry real signals — boards you actually test, not mockups.</p>
+        <h3>Boards you power up</h3>
+        <p>Copper traces, multi-layer routing, and embedded R, L, and C that carry real signals. These are boards you flash firmware onto and probe, not visual mockups.</p>
       </div>
       <div class="card">
         <span class="n">02</span>
         <h3>In-house and private</h3>
-        <p>Your design never leaves the building. No fab queue, no shipping, no exposing unreleased hardware to a third party — and for defense and aerospace teams whose designs legally can't cross a border, in-house isn't a convenience. It's the requirement.</p>
+        <p>Your design never leaves the building. No fab queue, no shipping, no exposing unreleased hardware to a third party — and for defense and aerospace teams whose designs legally can't cross a border, in-house is a hard requirement.</p>
       </div>
       <div class="card">
         <span class="n">03</span>
@@ -442,7 +442,7 @@
       <button type="button" onclick="joinList('foot')">Join the beta waitlist</button>
     </div>
     <p class="capture-ok" id="ok-foot">On the list. We'll reach out before the first units ship. ⚡</p>
-    <p class="capture-note">The optional line helps more than you'd think — what early users are building shapes the machine.</p>
+    <p class="capture-note">Tell us what you're building — it shapes the machine.</p>
   </div>
 </section>
 
@@ -451,25 +451,25 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Go deeper</span>
-      <h2>The homepage is the pitch. The proof is one click in.</h2>
+      <h2>The proof is one click in.</h2>
     </div>
     <div class="explore">
       <a class="explore-card" href="/technology">
         <span class="ex-tag">Technology · the engineering brief</span>
-        <h3>Why ceramic, why paste — and the one problem we name out loud</h3>
-        <p>The firing window that decides which metals you get, how the same nozzle prints R, L, and C, and the co-fire shrinkage problem the whole architecture turns on. Written for technical reviewers, caveats included.</p>
+        <h3>Why ceramic, why paste — and the problem we haven't solved yet</h3>
+        <p>The firing window that decides which metals you get, how the same nozzle prints R, L, and C, and the co-fire shrinkage problem the whole architecture turns on. Written for technical reviewers.</p>
         <span class="ex-cta">Read the technical brief <span class="arrow">→</span></span>
       </a>
       <a class="explore-card" href="/log">
         <span class="ex-tag">Log · building in the open</span>
         <h3>Fired glass, real numbers, dead ends included</h3>
-        <p>Shrinkage measured with calipers, a motion platform on the bench, expert pushback answered in public — every milestone and honest miss on the way to a desktop ceramic fab, newest first.</p>
+        <p>Shrinkage measured with calipers, a motion platform on the bench, expert pushback answered in public — every milestone and dead end on the way to a desktop ceramic fab, newest first.</p>
         <span class="ex-cta">Follow the build <span class="arrow">→</span></span>
       </a>
       <a class="explore-card" href="/founders">
         <span class="ex-tag">Founders · why this, why us</span>
         <h3>Built by engineers who lived the wait</h3>
-        <p>An electrical systems engineer with RF-company lab time and a Cornell mechanical engineer with award-winning additive builds, closing the gap between how fast you can think and how slowly you can hold the board in your hand.</p>
+        <p>An electrical systems engineer with RF-company lab time and a Cornell mechanical engineer with award-winning additive builds — building the machine they wished they'd had.</p>
         <span class="ex-cta">Meet the founders <span class="arrow">→</span></span>
       </a>
     </div>
