@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrometheusPCB — Technical Brief: LTCC, direct ink writing & embedded passives</title>
+<title>PrometheusPCB · Technical Brief: LTCC, direct ink writing & embedded passives</title>
 <meta name="description" content="The engineering thesis behind PrometheusPCB: why low-temperature co-fired ceramic, why direct ink writing, how the same process prints resistors, capacitors and inductors in-layer, and the co-firing shrinkage problem the architecture turns on.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,7 +124,7 @@
   .trio .panel-tag{color:var(--copper)}
   .trio .panel-card svg{height:88px}
 
-  /* ---- the hard part — ignition accent ---- */
+  /* ---- the hard part / ignition accent ---- */
   .hot-sec .eyebrow{color:var(--ignition)}
   .callout{margin-top:clamp(28px,4vw,44px);border:1px solid var(--panel-edge);border-left:3px solid var(--ignition);background:var(--panel);border-radius:4px;padding:22px 26px;max-width:64ch}
   .callout .tag{font-family:"IBM Plex Mono",monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ignition);margin-bottom:8px}
@@ -204,10 +204,10 @@
     <div class="wrap">
       <span class="eyebrow reveal">The engineering thesis</span>
       <h1 class="reveal">Print the paste. <span class="glow">Fire the board</span>.</h1>
-      <p class="lede reveal">The machine on the homepage runs on one technical bet: low-temperature co-fired ceramic, laid down as paste and fired on your bench. This page is the reasoning behind it — the material, the machine architecture, why the same process prints the passives in, and the single problem the whole thing turns on.</p>
-      <p class="brief-note reveal">An engineering brief for technical reviewers — reasoning and figures, not a finished spec.</p>
+      <p class="lede reveal">The machine on the homepage runs on one technical bet: low-temperature co-fired ceramic, laid down as paste and fired on your bench. This page is the reasoning behind it: the material, the machine architecture, why the same process prints the passives in, and the single problem the whole thing turns on.</p>
+      <p class="brief-note reveal">An engineering brief for technical reviewers: reasoning and figures, not a finished spec.</p>
 
-      <!-- FIG 01 — firing window (signature) -->
+      <!-- FIG 01 · firing window (signature) -->
       <figure class="fig reveal" aria-label="Firing temperature axis from 400 to 1600 degrees Celsius. The LTCC window at 850 to 900 degrees, just below silver's melting point of 961 degrees, allows co-firing of silver, copper and gold. The HTCC zone at 1400 to 1600 degrees permits only refractory metals like tungsten and molybdenum.">
         <svg viewBox="0 0 1000 360" role="img" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -248,7 +248,7 @@
 
           <path d="M786.7 244 L786.7 256 L930 256 L930 244" fill="none" stroke="#7E939B" stroke-width="1.4"/>
           <text x="858" y="284" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700" fill="#ECE3D6">1400–1600 °C · HTCC</text>
-          <text x="858" y="306" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7E939B">W · Mo only — ~10× resistivity</text>
+          <text x="858" y="306" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7E939B">W · Mo only · ~10× resistivity</text>
 
           <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#7E939B">
             <g stroke="#3D5A63" stroke-width="1">
@@ -270,7 +270,7 @@
           </g>
           <text x="70" y="340" font-family="IBM Plex Mono, monospace" font-size="12" fill="#7E939B">co-firing temperature (°C) →</text>
         </svg>
-        <figcaption>FIG_01 · The firing window <span class="note">— color approximates the glow of matter at temperature</span></figcaption>
+        <figcaption>FIG_01 · The firing window <span class="note">· color approximates the glow of matter at temperature</span></figcaption>
       </figure>
     </div>
   </section>
@@ -283,8 +283,8 @@
         <h2>FR-4 is the default. Ceramic is the ceiling.</h2>
       </div>
       <div class="body reveal">
-        <p>Glass-epoxy (FR-4) is cheap and everywhere, and for most boards it's the right call. But it gives up on thermal conductivity, high-frequency loss, and hermetic sealing — which is exactly why RF front-ends, power modules, and aerospace and defense electronics — the hardware that has to survive the most extreme environments on Earth — move to <strong>ceramic substrates</strong>.</p>
-        <p>The catch has always been access. Co-fired ceramic lives behind specialist fabs with long lead times and high minimums — fine for a finished design, wrong for the early iteration loop. PrometheusPCB puts that substrate on the same bench you design at — advanced manufacturing, desk-sized.</p>
+        <p>Glass-epoxy (FR-4) is cheap and everywhere, and for most boards it's the right call. But it gives up on thermal conductivity, high-frequency loss, and hermetic sealing, which is exactly why RF front-ends, power modules, and aerospace and defense electronics (the hardware that has to survive the most extreme environments on Earth) move to <strong>ceramic substrates</strong>.</p>
+        <p>The catch has always been access. Co-fired ceramic lives behind specialist fabs with long lead times and high minimums: fine for a finished design, wrong for the early iteration loop. PrometheusPCB puts that substrate on the same bench you design at. Advanced manufacturing, desk-sized.</p>
       </div>
     </div>
   </section>
@@ -297,8 +297,8 @@
         <h2>Firing temperature decides which metals you get.</h2>
       </div>
       <div class="body reveal">
-        <p>Co-fired ceramic comes in two regimes, and the only real difference is heat. <strong>HTCC</strong> sinters at 1,400–1,600 °C — hot enough to rule out every high-conductivity metal, leaving refractory conductors like tungsten and molybdenum that run roughly an order of magnitude more resistive.</p>
-        <p><strong>LTCC</strong> sinters at 850–900 °C. That window sits just below silver's melting point (961 °C) — low enough to co-fire silver, copper, and gold, the conductors you actually want for RF and high-speed digital. Everything downstream follows from staying inside it.</p>
+        <p>Co-fired ceramic comes in two regimes, and the only real difference is heat. <strong>HTCC</strong> sinters at 1,400–1,600 °C, hot enough to rule out every high-conductivity metal, leaving refractory conductors like tungsten and molybdenum that run roughly an order of magnitude more resistive.</p>
+        <p><strong>LTCC</strong> sinters at 850–900 °C. That window sits just below silver's melting point (961 °C), low enough to co-fire silver, copper, and gold, the conductors you actually want for RF and high-speed digital. Everything downstream follows from staying inside it.</p>
       </div>
 
       <div class="table-wrap reveal">
@@ -309,8 +309,8 @@
           <tbody>
             <tr><th scope="row">Firing temperature</th><td class="val">850–900 °C</td><td class="val hot">1400–1600 °C</td></tr>
             <tr><th scope="row">Usable conductors</th><td>Silver, copper, gold</td><td class="hot">Tungsten, molybdenum</td></tr>
-            <tr><th scope="row">Conductor resistivity</th><td>Bulk-metal class — low</td><td class="hot">~10× higher</td></tr>
-            <tr><th scope="row">Embedded passives</th><td>Yes — R, L, C in-layer</td><td>Limited</td></tr>
+            <tr><th scope="row">Conductor resistivity</th><td>Bulk-metal class (low)</td><td class="hot">~10× higher</td></tr>
+            <tr><th scope="row">Embedded passives</th><td>Yes: R, L, C in-layer</td><td>Limited</td></tr>
             <tr><th scope="row">Best fit</th><td>RF / mmWave, high-speed digital</td><td>Rugged hermetic packages</td></tr>
           </tbody>
         </table>
@@ -327,12 +327,12 @@
         <h2>The deposition primitive is paste.</h2>
       </div>
       <div class="body reveal">
-        <p>A fused-filament printer melts a thermoplastic strand. Co-fired ceramic isn't a thermoplastic — it's a ceramic-and-glass powder suspended in a binder, and the conductor is a separate metal-loaded paste laid down in the same build. Neither one feeds through an FFF hot end.</p>
-        <p>The correct primitive is <strong>direct ink writing</strong> — robocasting: extrude a loaded paste through a fine nozzle under controlled rheology, place dielectric and conductor in the same pass, then co-fire the green part into a solid board. That fork in the road is what separates a real ceramic process from the FFF-based "PCB printer" projects that stall on materials.</p>
-        <p>Because the <a href="/log" style="color:var(--copper-bright)">build log</a> shows filament on our own bench: today's hand-run coupons and test articles are FFF-printed from glass-filled filament — the fastest way to a fireable green body before the paste toolhead exists, and a deliberately conservative one. A filament body is the crudest green body this process will ever see: more binder to burn out, lower glass loading, more residual porosity than a paste we'd formulate. What we're testing is whether an LTCC-style board can be made in-house at all — and if a circuit survives co-firing in that body, the test has proven the floor, not the ceiling. Moving to paste is an upgrade with decades of production LTCC behind it, not a new open question. The conductor already goes down as dispensed ink; the machine is, and stays, a paste process.</p>
+        <p>A fused-filament printer melts a thermoplastic strand. Co-fired ceramic isn't a thermoplastic; it's a ceramic-and-glass powder suspended in a binder, and the conductor is a separate metal-loaded paste laid down in the same build. Neither one feeds through an FFF hot end.</p>
+        <p>The correct primitive is <strong>direct ink writing</strong>, or robocasting: extrude a loaded paste through a fine nozzle under controlled rheology, place dielectric and conductor in the same pass, then co-fire the green part into a solid board. That fork in the road is what separates a real ceramic process from the FFF-based "PCB printer" projects that stall on materials.</p>
+        <p>Because the <a href="/log" style="color:var(--copper-bright)">build log</a> shows filament on our own bench: today's hand-run coupons and test articles are FFF-printed from glass-filled filament: the fastest way to a fireable green body before the paste toolhead exists, and a deliberately conservative one. A filament body is the crudest green body this process will ever see: more binder to burn out, lower glass loading, more residual porosity than a paste we'd formulate. What we're testing is whether an LTCC-style board can be made in-house at all. If a circuit survives co-firing in that body, the test has proven the floor, not the ceiling. Moving to paste is an upgrade with decades of production LTCC behind it, not a new open question. The conductor already goes down as dispensed ink; the machine is, and stays, a paste process.</p>
       </div>
 
-      <!-- FIG 02 — FFF vs DIW -->
+      <!-- FIG 02 · FFF vs DIW -->
       <div class="duo reveal">
         <figure class="panel-card">
           <div class="panel-tag"><span>FFF · melt a filament</span><span class="verdict v-no">✗ wrong tool</span></div>
@@ -357,7 +357,7 @@
             <rect x="136" y="92" width="28" height="9" rx="4" fill="#6E848C"/>
           </svg>
           <h3>Two pastes, one pass</h3>
-          <p>Dielectric paste and metal-loaded conductor paste, placed in the same pass under controlled rheology — then co-fired into one ceramic board.</p>
+          <p>Dielectric paste and metal-loaded conductor paste, placed in the same pass under controlled rheology, then co-fired into one ceramic board.</p>
         </figure>
       </div>
       <p class="eyebrow cap reveal">FIG_02 · deposition primitive · grey = dielectric, copper = conductor</p>
@@ -372,8 +372,8 @@
         <h2>The same nozzle that prints traces prints the passives.</h2>
       </div>
       <div class="body reveal">
-        <p>This is the part that makes ceramic worth the trouble. Because direct ink writing already places more than one paste in a build, a resistor is a stripe of resistive paste between two vias; a capacitor is an electrode / dielectric / electrode stack; an inductor is a coil of the same conductor. All of them are formed <strong>inside the layers</strong>, in the same pass that lays the wiring — the headline capability LTCC has had in production for decades, pulled onto the bench.</p>
-        <p>That matters because passives dominate a bill of materials. Resistors and capacitors are routinely 70–90% of the part count on a real board. Print those in and the machine stops being a wiring printer and starts being a <strong>functional-electronics printer</strong> — what's left to place is the active silicon, plus the short list of tight-tolerance holdouts the caveat below names.</p>
+        <p>This is the part that makes ceramic worth the trouble. Because direct ink writing already places more than one paste in a build, a resistor is a stripe of resistive paste between two vias; a capacitor is an electrode / dielectric / electrode stack; an inductor is a coil of the same conductor. All of them are formed <strong>inside the layers</strong>, in the same pass that lays the wiring: the headline capability LTCC has had in production for decades, pulled onto the bench.</p>
+        <p>That matters because passives dominate a bill of materials. Resistors and capacitors are routinely 70–90% of the part count on a real board. Print those in and the machine stops being a wiring printer and starts being a <strong>functional-electronics printer</strong>. What's left to place is the active silicon, plus the short list of tight-tolerance holdouts the caveat below names.</p>
       </div>
 
       <div class="trio reveal">
@@ -385,7 +385,7 @@
             <path d="M50 77 h10 l7 -16 12 32 12 -32 12 32 12 -32 7 16 h10" fill="none" stroke="#E0A05C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <h3>Resistive paste, in-layer</h3>
-          <p>A length of carbon- or metal-oxide-loaded paste. Its resistance is set by geometry — width, length, thickness — so the CAD sets the value.</p>
+          <p>A length of carbon- or metal-oxide-loaded paste. Its resistance is set by geometry (width, length, thickness), so the CAD sets the value.</p>
         </figure>
         <figure class="panel-card">
           <div class="panel-tag"><span>Printed capacitor</span></div>
@@ -414,7 +414,7 @@
 
       <aside class="callout reveal" style="border-left-color:var(--copper)">
         <p class="tag" style="color:var(--copper)">The caveat</p>
-        <p>Printed passives start loose. A commercial chip resistor ships at 1% or better; a printed one lands roughly <strong>10–20% off</strong> until it's laser-trimmed or closed-loop corrected, and a printed capacitor holds far less capacitance per area than an MLCC. So the first target isn't every part — it's the long tail of loose-tolerance pull-ups, terminations, and the small-value coupling and filter caps a printed plate can actually deliver. Bulk decoupling, tight-tolerance and high-value parts, and every active device, stay on the placement list — dropped onto <strong>standard IPC-7351 footprints</strong> the machine prints for you. And embedding is per-part, not all-or-nothing: a value you're still tuning stays a printed footprint with a discrete on it, and gets buried once it settles. When a respin costs an afternoon instead of a fab cycle, changing an embedded value is a reprint — not a rework you've lost the option of.</p>
+        <p>Printed passives start loose. A commercial chip resistor ships at 1% or better; a printed one lands roughly <strong>10–20% off</strong> until it's laser-trimmed or closed-loop corrected, and a printed capacitor holds far less capacitance per area than an MLCC. So the first target isn't every part; it's the long tail of loose-tolerance pull-ups, terminations, and the small-value coupling and filter caps a printed plate can actually deliver. Bulk decoupling, tight-tolerance and high-value parts, and every active device, stay on the placement list, dropped onto <strong>standard IPC-7351 footprints</strong> the machine prints for you. And embedding is per-part, not all-or-nothing: a value you're still tuning stays a printed footprint with a discrete on it, and gets buried once it settles. When a respin costs an afternoon instead of a fab cycle, changing an embedded value is a reprint, not a rework you've lost the option of.</p>
       </aside>
     </div>
   </section>
@@ -427,11 +427,11 @@
         <h2>One materials problem. The whole architecture turns on it.</h2>
       </div>
       <div class="body reveal">
-        <p>Fire a green board and both materials densify and shrink — but not by the same amount, and not at the same rate. Control that <strong>co-firing shrinkage mismatch</strong> and the board comes out dimensionally true. Lose control of it and you get warpage, delamination, and broken traces.</p>
+        <p>Fire a green board and both materials densify and shrink, but not by the same amount and not at the same rate. Control that <strong>co-firing shrinkage mismatch</strong> and the board comes out dimensionally true. Lose control of it and you get warpage, delamination, and broken traces.</p>
         <p>Production LTCC fabs hold in-plane shrinkage to about ±0.2% using constrained-sintering techniques. Reproducing that kind of control in a desktop-scale machine is the central unsolved problem of this program. It has company on the bench, too: the <a href="/log" style="color:var(--copper-bright)">build log</a> tracks fired-part brittleness alongside it as a second measured materials problem.</p>
       </div>
 
-      <!-- FIG 03 — shrinkage -->
+      <!-- FIG 03 · shrinkage -->
       <figure class="fig fig-sm reveal" aria-label="A green part shrinks by roughly 14 percent on firing; uneven shrinkage between dielectric and conductor causes warping.">
         <svg viewBox="0 0 460 200" role="img" xmlns="http://www.w3.org/2000/svg">
           <rect x="30" y="40" width="150" height="120" rx="3" fill="none" stroke="#7E939B" stroke-width="1.6" stroke-dasharray="5 4"/>
@@ -442,12 +442,12 @@
           <text x="352" y="176" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#7E939B">−~14% linear (typ.)</text>
           <text x="105" y="184" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#7E939B">uneven between layers → warp</text>
         </svg>
-        <figcaption>FIG_03 · co-fire shrinkage <span class="note">— ~14% is typical of production LTCC tape; our first borosilicate coupons measure ~10% (log · Jul 24)</span></figcaption>
+        <figcaption>FIG_03 · co-fire shrinkage <span class="note">· ~14% is typical of production LTCC tape; our first borosilicate coupons measure ~10% (log · Jul 24)</span></figcaption>
       </figure>
 
       <aside class="callout reveal">
         <p class="tag">The fallback</p>
-        <p>Print and fire the ceramic first, then metallize it afterward. <strong>Post-fire metallization</strong> sidesteps the co-fire mismatch entirely, at some cost in density and layer count. It's the documented backstop — so the program isn't betting everything on cracking co-fire shrinkage on day one.</p>
+        <p>Print and fire the ceramic first, then metallize it afterward. <strong>Post-fire metallization</strong> sidesteps the co-fire mismatch entirely, at some cost in density and layer count. It's the documented backstop, so the program isn't betting everything on cracking co-fire shrinkage on day one.</p>
       </aside>
     </div>
   </section>
@@ -464,19 +464,19 @@
           <span class="who">Closed inkjet &amp; aerosol</span>
           <h3>Capable, sealed, polymer</h3>
           <div class="metric">six figures</div>
-          <p>Multi-layer additive electronics exist today as six-figure closed appliances built around polymer and silver-ink. Capable machines — but not co-fired ceramic, and not open.</p>
+          <p>Multi-layer additive electronics exist today as six-figure closed appliances built around polymer and silver-ink. Capable machines, but not co-fired ceramic, and not open.</p>
         </div>
         <div class="col reveal">
           <span class="who">Specialist LTCC fabs</span>
           <h3>Real ceramic, off your bench</h3>
           <div class="metric">weeks · high MOQ</div>
-          <p>Co-fired ceramic made well — with the lead times, minimums, and queue that put it outside the early iteration loop where it'd help most.</p>
+          <p>Co-fired ceramic made well, with the lead times, minimums, and queue that put it outside the early iteration loop where it'd help most.</p>
         </div>
         <div class="col me reveal">
           <span class="who">PrometheusPCB</span>
           <h3>A ceramic loop on your desk</h3>
           <div class="metric">hours · open</div>
-          <p>A ceramic iteration loop a single team can afford — passives printed in — on an open, modular architecture you can build on instead of a sealed box.</p>
+          <p>A ceramic iteration loop a single team can afford, with the passives printed in, on an open, modular architecture you can build on instead of a sealed box.</p>
         </div>
       </div>
     </div>
@@ -490,8 +490,8 @@
         <h2>Funded, two founders, and building the first prototype.</h2>
       </div>
       <div class="body reveal">
-        <p>PrometheusPCB is backed by the Texas Tech Innovation Hub JumpStart grant and NSF I-Corps customer-discovery funding. Aaron Wang (electrical systems + ME) and Julian Stoller (ME) are the founding team — and we're past the literature phase: heads-down building the first hand-run prototype and turning the open questions into bench experiments, while we keep talking to the teams and labs who'd use it.</p>
-        <p>The seat we're still filling is deep materials. If you work in <strong>ceramic processing, paste rheology, or constrained sintering</strong> — and the shrinkage problem above reads as a challenge rather than a dealbreaker — we should talk.</p>
+        <p>PrometheusPCB is backed by the Texas Tech Innovation Hub JumpStart grant and NSF I-Corps customer-discovery funding. Aaron Wang (electrical systems + ME) and Julian Stoller (ME) are the founding team. We're past the literature phase: heads-down building the first hand-run prototype and turning the open questions into bench experiments, while we keep talking to the teams and labs who'd use it.</p>
+        <p>The seat we're still filling is deep materials. If you work in <strong>ceramic processing, paste rheology, or constrained sintering</strong>, and the shrinkage problem above reads as a challenge rather than a dealbreaker, we should talk.</p>
       </div>
       <div class="cta-row reveal">
         <a class="btn btn-solid" href="/#waitlist">Join the beta</a>
