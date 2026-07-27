@@ -176,7 +176,7 @@
       <span class="eyebrow">Build log</span>
       <h1>Building in the <span class="glow">open</span>.</h1>
       <p class="lede">A running record of PrometheusPCB for the people following along — investors, accelerators, and anyone who wants to see where this goes. Every milestone, decision, and honest dead end on the way to a desktop ceramic fab, newest first. I'd rather show the work than polish a highlight reel.</p>
-      <p class="log-meta" id="logMeta">11 entries &middot; last updated Jul 25, 2026</p>
+      <p class="log-meta" id="logMeta">12 entries &middot; last updated Jul 27, 2026</p>
       <div class="filters" id="filters"></div>
     </div>
   </section>
@@ -184,26 +184,37 @@
   <section class="divider" style="padding-top:44px">
     <div class="wrap">
       <div class="timeline" id="timeline">
-      <article class="entry t-update" data-type="update" data-date="2026-07-25" style="animation-delay:0ms">
-        <div class="entry-meta"><span class="entry-date">Jul 25, 2026</span><span class="entry-tag">update</span></div>
-        <h3 class="entry-title">Dispensing picked: Allstruder now, Techcon TS5000DMP when the data earns it</h3>
-        <div class="entry-body"><p>The silver needs a path out of the syringe, and we've settled how. For the hand-run proofs we're staying open source: <strong>Allstruder</strong>, an open-source paste-extruder design we can print, modify, and repair ourselves. Same reasoning as the motion platform: the dispenser isn't our defensible problem, and this stage of it is already solved well enough to build on.</p>
-        <p>The upgrade path has a name too. The <strong>Techcon TS5000DMP</strong> is a disposable-material-path rotary auger valve from the industrial dispensing world. An auger valve meters shear-thinning pastes with much finer start/stop control than a syringe plunger, and the disposable fluid path matters when the fluid is silver: nothing to clean out between runs, nothing wasted in a valve body. It's a purchase the process has to earn with data first, not a day-one buy.</p>
-        <p>With the Dycotec silver in manufacture, this is the hardware it flows through when it lands, and we're genuinely excited to see what the ink does through each: bead width against our 300–400&nbsp;µm nozzles, start/stop crispness, how much thinner it takes. Those numbers pick the head the machine gets designed around. The turntable below is the AllStruder itself, so the plan has a face.</p></div>
-        <figure class="entry-figure"><img src="assets/allstruder-turntable-2026-07-25.gif" alt="Rotating CAD turntable of the AllStruder syringe-pump extruder: a vertical lead screw and guided plunger carriage above a syringe mount, a knurled adjustment knob on top, and a printable structural body with a mounting base." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>The AllStruder, in CAD — a lead-screw syringe pump: the screw walks the plunger carriage down the barrel, pushing paste out the nozzle at a rate the motion controller sets, in a body that's mostly printable parts plus off-the-shelf hardware. This is the design, not our built unit — build photos when it's assembled and dispensing on the bench.</figcaption></figure>
-        <a class="entry-link" href="https://techcon.com/wp-content/uploads/2020/06/TS5000DMP-DCX-Data-Sheet.pdf">Techcon TS5000DMP data sheet &rarr;</a>
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-27" style="animation-delay:0ms">
+        <div class="entry-meta"><span class="entry-date">Jul 27, 2026</span><span class="entry-tag">milestone</span></div>
+        <h3 class="entry-title">Applied to Y Combinator</h3>
+        <div class="entry-body"><p>We submitted our application to Y Combinator today, for the Fall 2026 batch. Most of what we had to show is already in this log: the supplier, the silver in manufacture, the motion platform, the first fired parts, and the criticism we got along with our answers to it.</p>
+        <p>One thing we planned for this application didn't happen. The functional Benchy we targeted for July 26 isn't done, because partway through the week we chose to put that time into the MVP machine itself rather than a hand-built demo. The Benchy stays on the list. The order changed.</p>
+        <p>We also had our talk with Prof. Changzhi Li and three of his research students, and it was a fantastic conversation. It backed up that what we're building is needed, and it gave us concrete requirements from the RF side that our machine can be built to meet. A video with his student is coming soon and we'll post it here.</p>
+        <p>Our founder video is below. Whatever YC decides, we keep building.</p></div>
+        <figure class="entry-figure"><div style="position:relative;aspect-ratio:16/9;background:#0d1a1f"><iframe src="https://www.youtube.com/embed/V0jISR6Ckak" title="PrometheusPCB founder video" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><figcaption>Our founder video for the application.</figcaption></figure>
+        <a class="entry-link" href="https://youtu.be/V0jISR6Ckak">Watch on YouTube &rarr;</a>
       </article>
 
-      <article class="entry t-research" data-type="research" data-date="2026-07-25" style="animation-delay:60ms">
+      <article class="entry t-update" data-type="update" data-date="2026-07-25" style="animation-delay:60ms">
+        <div class="entry-meta"><span class="entry-date">Jul 25, 2026</span><span class="entry-tag">update</span></div>
+        <h3 class="entry-title">Dispensing picked: Allstruder now, Techcon TS5000DMP when the data earns it</h3>
+        <div class="entry-body"><p>The silver needs a path out of the syringe, and we've settled how. For the hand-run proofs we're staying open source: the <strong>Allstruder</strong>, a modular syringe extruder published this January by Thomas Hinton, Daniel Shiwarski, and colleagues under CC BY 4.0. It mounts to nine printer platforms, takes syringes from 0.1 to 100&nbsp;mL, and builds from printed parts plus off-the-shelf hardware, which is the flexibility hand-run process development needs. Same reasoning as the motion platform: the dispenser isn't our defensible problem, and this one is already solved well enough to build on.</p>
+        <p>The upgrade path has a name too. The <strong>Techcon TS5000DMP</strong> is a disposable-material-path rotary auger valve from the industrial dispensing world. An auger valve meters shear-thinning pastes with much finer start/stop control than a syringe plunger, and the disposable fluid path matters when the fluid is silver: nothing to clean out between runs, nothing wasted in a valve body. It's a purchase the process has to earn with data first, not a day-one buy.</p>
+        <p>With the Dycotec silver in manufacture, this is the hardware it flows through when it lands, and we're genuinely excited to see what the ink does through each: bead width against our 300–400&nbsp;µm nozzles, start/stop crispness, how much thinner it takes. Those numbers pick the head the machine gets designed around. The turntable below is the Allstruder itself, so the plan has a face.</p></div>
+        <figure class="entry-figure"><img src="assets/allstruder-turntable-2026-07-25.gif" alt="Rotating CAD turntable of the AllStruder syringe-pump extruder: a vertical lead screw and guided plunger carriage above a syringe mount, a knurled adjustment knob on top, and a printable structural body with a mounting base." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>The Allstruder, in CAD — a lead-screw syringe pump: the screw walks the plunger carriage down the barrel, pushing paste out the nozzle at a rate the motion controller sets, in a body that's mostly printable parts plus off-the-shelf hardware. Design by Hinton, Patten, Crosby, and Shiwarski (CC BY 4.0). This is the design, not our built unit — build photos when it's assembled and dispensing on the bench.</figcaption></figure>
+        <a class="entry-link" href="https://zenodo.org/records/18274208">Allstruder CAD on Zenodo &rarr;</a>&ensp;<a class="entry-link" href="https://techcon.com/wp-content/uploads/2020/06/TS5000DMP-DCX-Data-Sheet.pdf">Techcon TS5000DMP data sheet &rarr;</a>
+      </article>
+
+      <article class="entry t-research" data-type="research" data-date="2026-07-25" style="animation-delay:120ms">
         <div class="entry-meta"><span class="entry-date">Jul 25, 2026</span><span class="entry-tag">research</span></div>
         <h3 class="entry-title">"Elegant on paper, not practical" — first expert pushback</h3>
         <div class="entry-body"><p>The pushback came from someone worth listening to: <a href="https://www.linkedin.com/in/taiphan/">Tai Phan</a>, Principal Engineer for Electronic Systems at Stalker Radar, with three decades of hardware behind him — and, full disclosure, someone Aaron knows from his lab days there. His verdict on PrometheusPCB: elegant on paper, not practical. Industry already has embedded-passive PCB and rarely uses it, because buried parts can't be reworked when a revision swaps one resistor value. The bare board isn't even the expensive part, he added — the components on top are, and you can't recover them by swapping parts from a v1 board onto a v2. And designers won't fly blind on the tolerance, voltage, and wattage of a printed part.</p>
         <p><strong>Some of that we accept, some we don't.</strong> He's right about production, and we won't pitch this as a way to sustain shipped hardware. We disagree about the loop: when a respin is an afternoon instead of a fab cycle, changing a buried value is a reprint, and a value still being tuned can stay a placed IPC-7351 footprint until it settles. The component-cost point partly lands: printing the passives shrinks what a dead revision wastes, but placed silicon is still lost with the board it's soldered to — a real price of iterating, whoever makes the board. On tolerance there's nothing to argue, only to measure — coupons, probe pads, published derating numbers.</p>
-        <p><strong>What it changed:</strong> we didn't file the criticism away. We reached out to <a href="https://www.depts.ttu.edu/ece/faculty/changzhi_li/index.php">Prof. Changzhi Li</a> at Texas Tech ECE, whose field is RF and microwave sensing, and already have a meeting set with him and one of his research students to put the same objections on the table and see what else breaks.</p>
+        <p><strong>What it changed:</strong> we didn't file the criticism away. We reached out to <a href="https://www.depts.ttu.edu/ece/faculty/changzhi_li/index.php">Prof. Changzhi Li</a> at Texas Tech ECE, whose field is RF and microwave sensing, and already have a meeting set with him and his research students to put the same objections on the table and see what else breaks.</p>
         <p>This log will never be a highlight reel. If you read this and see a hole he missed, tell us — criticism is worth more to us right now than praise, and we're more motivated with it than we were without it.</p></div>
       </article>
 
-      <article class="entry t-update" data-type="update" data-date="2026-07-24" style="animation-delay:120ms">
+      <article class="entry t-update" data-type="update" data-date="2026-07-24" style="animation-delay:180ms">
         <div class="entry-meta"><span class="entry-date">Jul 24, 2026</span><span class="entry-tag">update</span></div>
         <h3 class="entry-title">Fine-motion platform built — and the first honest look at fired glass</h3>
         <div class="entry-body"><p>For the MVP we're leaning on open source wherever someone has already solved a problem better than we would. The clearest example is the motion system.</p>
@@ -234,7 +245,7 @@
         <a class="entry-link" href="https://github.com/0x23/MicroManipulatorStepper">Open Micro-Manipulator on GitHub &rarr;</a>
       </article>
 
-      <article class="entry t-update" data-type="update" data-date="2026-07-19" style="animation-delay:180ms">
+      <article class="entry t-update" data-type="update" data-date="2026-07-19" style="animation-delay:240ms">
         <div class="entry-meta"><span class="entry-date">Jul 19, 2026</span><span class="entry-tag">update</span></div>
         <h3 class="entry-title">Next target: a functional 3DBenchy for YC</h3>
         <div class="entry-body"><p><strong>Research phase done — now we build.</strong> The material and process questions we could settle on paper are settled; the next move is to make something real and put it in front of people.</p>
@@ -245,7 +256,7 @@
         <p><strong>Groundwork behind it.</strong> Repositioned the whole site around printed passives: the machine isn't just a PCB printer — it forms resistors, capacitors, and inductors directly in the ceramic layers, so the bulk of a board's BOM is fabbed, not placed. And for the parts we'll still place by hand, standardized on <strong>IPC-7351</strong> footprints (Nominal (N) first — the industry default), to compensate later for our line width and shrinkage. First passive targets: 0402 / 0603 / 0805 R and C.</p></div>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-15" style="animation-delay:240ms">
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-15" style="animation-delay:300ms">
         <div class="entry-meta"><span class="entry-date">Jul 15, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">First silver ink ordered — and a coupon to measure it</h3>
         <div class="entry-body"><p>First atoms in motion. Payment cleared and the Dycotec order is officially in: our first <strong>silver conductor ink</strong> — the metal that becomes the traces once it's printed and fired — is now in manufacture, the ten-working-day clock from the Jul 10 signing running. Meanwhile we designed a dedicated <strong>trace-thickness test coupon</strong> to characterize it the day it arrives.</p>
@@ -254,7 +265,7 @@
         <figure class="entry-figure"><img src="assets/test-coupon-2026-07-15.jpg" alt="CAD view of the trace-thickness test coupon: two boards of straight traces stepped across a range of widths, each trace ending in circular probe pads." loading="lazy" onerror="this.closest('.entry-figure').style.display='none'"><figcaption>TraceThickness test coupon (ProPCB) — traces stepped across widths with probe pads at each end, for measuring fired shrinkage and trace resistance.</figcaption></figure>
       </article>
 
-      <article class="entry t-decision" data-type="decision" data-date="2026-07-10" style="animation-delay:300ms">
+      <article class="entry t-decision" data-type="decision" data-date="2026-07-10" style="animation-delay:360ms">
         <div class="entry-meta"><span class="entry-date">Jul 10, 2026</span><span class="entry-tag">decision</span></div>
         <h3 class="entry-title">Signed with Dycotec for the silver — a custom fritless paste, and the education bundled in</h3>
         <div class="entry-body"><p>The conductor has a supplier. After shopping thick-film paste makers for a silver that can co-fire in air around <strong>850&nbsp;°C on a borosilicate green body</strong>, we've signed with <strong>Dycotec Materials</strong> (UK). Nothing off the shelf fits — standard silvers carry glass frit and are built for firing on pre-fired alumina — so the deal is a small custom batch made for us: <strong>DM-SIP-14001-K0, a fritless silver</strong>, plus a matched thinner for dispensing. The conductor side of the process is direct-ink-writing paste from day one, even while the green bodies for the hand-run proofs come off a filament printer.</p>
@@ -264,33 +275,33 @@
         <a class="entry-link" href="https://www.dycotecmaterials.com">Dycotec Materials &rarr;</a>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-01" style="animation-delay:360ms">
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-07-01" style="animation-delay:420ms">
         <div class="entry-meta"><span class="entry-date">Jul 1, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">Julian Stoller joined as co-founder</h3>
         <div class="entry-body"><p>Picked up a co-founder: <strong>Julian Stoller</strong>, a fresh Cornell mechanical-engineering graduate with deep additive-manufacturing experience — the deposition and process side of building a machine like this — which pairs directly with the electrical-systems side of the work. The match came through Y Combinator's Co-Founder Matching, and we'd been building together for weeks before making it official. From here we're tackling PrometheusPCB together.</p></div>
         <a class="entry-link" href="https://www.linkedin.com/in/julian-stoller-394a16166/">Julian on LinkedIn &rarr;</a>
       </article>
 
-      <article class="entry t-decision" data-type="decision" data-date="2026-06-24" style="animation-delay:420ms">
+      <article class="entry t-decision" data-type="decision" data-date="2026-06-24" style="animation-delay:480ms">
         <div class="entry-meta"><span class="entry-date">Jun 24, 2026</span><span class="entry-tag">decision</span></div>
         <h3 class="entry-title">Post-fire metallization as the documented fallback</h3>
         <div class="entry-body"><p>Committed to carrying a backstop for the co-fire shrinkage-mismatch risk: print and fire the ceramic first, then metallize afterward. Costs some density and layer count, but it sidesteps the mismatch entirely — so the program isn't betting everything on cracking constrained sintering on day one.</p></div>
       </article>
 
-      <article class="entry t-decision" data-type="decision" data-date="2026-06-10" style="animation-delay:480ms">
+      <article class="entry t-decision" data-type="decision" data-date="2026-06-10" style="animation-delay:540ms">
         <div class="entry-meta"><span class="entry-date">Jun 10, 2026</span><span class="entry-tag">decision</span></div>
         <h3 class="entry-title">LTCC over HTCC — staying under 900 °C</h3>
         <div class="entry-body"><p>Chose low-temperature co-fired ceramic (850–900 °C) over HTCC (1400–1600 °C). The LTCC window sits just below silver's melting point, which is what lets us co-fire silver, copper, and gold — the low-resistivity conductors you actually want for RF and high-speed digital. HTCC would force refractory metals at ~10× the resistivity. Everything downstream follows from staying in that window.</p></div>
         <a class="entry-link" href="/technology">The reasoning, in the technical brief &rarr;</a>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-28" style="animation-delay:540ms">
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-28" style="animation-delay:600ms">
         <div class="entry-meta"><span class="entry-date">May 28, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">Backed by TTU JumpStart + NSF I-Corps</h3>
         <div class="entry-body"><p>PrometheusPCB picked up Texas Tech Innovation Hub JumpStart funding and an NSF I-Corps customer-discovery grant — enough room to start chasing the gap now instead of someday. Kicked off customer discovery with hardware teams and labs.</p></div>
       </article>
 
-      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-12" style="animation-delay:600ms">
+      <article class="entry t-milestone" data-type="milestone" data-date="2026-05-12" style="animation-delay:660ms">
         <div class="entry-meta"><span class="entry-date">May 12, 2026</span><span class="entry-tag">milestone</span></div>
         <h3 class="entry-title">Project kickoff</h3>
         <div class="entry-body"><p>Started PrometheusPCB. The thesis: pull ceramic fabrication onto the bench so the wait between revisions stops being the bottleneck. Solo for now, and already looking for a materials co-founder who reads the shrinkage problem as a challenge rather than a dealbreaker.</p></div>
