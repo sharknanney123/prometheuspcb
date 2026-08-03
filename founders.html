@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrometheusPCB · Meet the founders: why we're building a desktop fab</title>
-<meta name="description" content="Meet the founders of PrometheusPCB: Aaron Wang and Julian Stoller on closing the gap between how fast you can think and how slowly you can hold a finished board in your hand.">
+<title>PrometheusPCB · Meet the founder: why I'm building a desktop fab</title>
+<meta name="description" content="Meet the founder of PrometheusPCB: Aaron Wang on closing the gap between how fast you can think and how slowly you can hold a finished board in your hand.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -96,6 +96,15 @@
   .founder-card p{color:#C3CDD0;font-size:.98rem}
   .founder-card .flink{margin-top:auto;padding-top:6px;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--copper-bright)}
   .founder-card .flink:hover{text-decoration:underline;text-underline-offset:2px}
+  /* solo founder treatment */
+  .founders.solo{grid-template-columns:1fr;max-width:840px}
+  .founder-card.solo{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  .founder-card.solo .headshot{margin-bottom:0;max-width:300px}
+  .founder-card.solo .fbody{display:flex;flex-direction:column;gap:13px}
+  @media(min-width:760px){
+    .founder-card.solo{grid-template-columns:236px 1fr;gap:28px}
+    .founder-card.solo .headshot{max-width:none}
+  }
 
   /* pull-quote */
   .quote{border-left:3px solid var(--copper);padding:6px 0 6px 28px;max-width:60ch}
@@ -146,7 +155,7 @@
     <div class="nav-right">
       <a href="/technology" class="nav-link">Technology</a>
       <a href="/log" class="nav-link">Log</a>
-      <a href="/founders" class="nav-link active">Founders</a>
+      <a href="/founders" class="nav-link active">Founder</a>
       <a href="/#waitlist" class="nav-cta">Join the beta</a>
     </div>
   </div>
@@ -157,15 +166,15 @@
   <!-- HERO -->
   <section class="hero-sec">
     <div class="wrap">
-      <span class="eyebrow reveal">Meet the founders</span>
-      <h1 class="reveal">Why we're building a fab small enough to sit on your <span class="glow">desk</span>.</h1>
-      <p class="lede reveal">We're Aaron Wang and Julian Stoller. Aaron trained in electrical systems at Texas A&amp;M before transferring to Texas Tech for mechanical engineering; Julian just graduated from Cornell as a mechanical engineer. We're building PrometheusPCB because the slowest part of building hardware isn't the thinking. It's the waiting.</p>
+      <span class="eyebrow reveal">Meet the founder</span>
+      <h1 class="reveal">Why I'm building a fab small enough to sit on your <span class="glow">desk</span>.</h1>
+      <p class="lede reveal">I'm Aaron Wang. I trained in electrical systems at Texas A&amp;M before transferring to Texas Tech for mechanical engineering — a degree plan that runs along the same seam this machine does. I'm building PrometheusPCB because the slowest part of building hardware isn't the thinking. It's the waiting.</p>
 
       <div class="facts reveal">
         <div class="fact"><span class="k">Founder · Electrical + Mechanical</span><span class="v">Aaron Wang · A&amp;M → Texas Tech</span></div>
-        <div class="fact"><span class="k">Founder · ME</span><span class="v">Julian Stoller · Cornell</span></div>
         <div class="fact"><span class="k">Backed by</span><span class="v">TTU JumpStart + NSF I-Corps</span></div>
         <div class="fact"><span class="k">Status</span><span class="v">Building the first prototype</span></div>
+        <div class="fact"><span class="k">Open seat</span><span class="v">Ceramic materials co-founder</span></div>
       </div>
     </div>
   </section>
@@ -175,11 +184,11 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Why this</span>
-        <h2>We didn't stumble into a startup. We both went looking.</h2>
+        <h2>I didn't stumble into a startup. I went looking.</h2>
       </div>
       <div class="body reveal">
-        <p>Before PrometheusPCB existed, we'd each decided the same thing separately: we wanted to build a company. Aaron had already launched products on his own and validated a consumer startup with real customers in the field. Julian had taken designs from CAD to award podiums and led an engineering team through multiple hardware generations. Both of us were actively looking for a co-founder and a problem worth years of our lives. That's how we found each other.</p>
-        <p>We also agreed on what kind of company. Something physical and hard, where the moat is process and materials rather than a thin software layer, and where a two-person team can move faster than an incumbent's committee. The gap between how fast you can think and how slowly you can hold a finished board in your hand is exactly that kind of problem. PrometheusPCB is the commitment.</p>
+        <p>Before PrometheusPCB existed, I'd already decided I wanted to build a company. I'd launched products on my own and validated a consumer startup with real customers in the field. What I was missing was a problem worth years of my life — hard enough to be worth doing, and close enough to something I actually understood to be worth doing <em>by me</em>.</p>
+        <p>I also knew what kind of company. Something physical and hard, where the moat is process and materials rather than a thin software layer, and where a small team can move faster than an incumbent's committee. The gap between how fast you can think and how slowly you can hold a finished board in your hand is exactly that kind of problem. PrometheusPCB is the commitment.</p>
       </div>
     </div>
   </section>
@@ -188,29 +197,23 @@
   <section class="divider">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">The founders</span>
-        <h2>Two disciplines, one machine.</h2>
+        <span class="eyebrow">The founder</span>
+        <h2>One machine, built on the seam between two disciplines.</h2>
       </div>
-      <div class="founders">
-        <article class="founder-card reveal">
+      <div class="founders solo">
+        <article class="founder-card solo reveal">
           <img class="headshot" src="assets/founder-aaron.jpg" alt="Aaron Wang, grinning through a brick-built gold picture frame" loading="lazy" onerror="this.style.display='none'">
-          <span class="role">Co-founder · Electrical + Mechanical</span>
-          <h3>Aaron Wang</h3>
-          <p>Electrical systems at Texas A&amp;M, then a transfer to Texas Tech for mechanical engineering: training that deliberately spans both halves of a machine that's equal parts electronics and precision motion. The seam this machine lives on runs right through his degree plan.</p>
-          <p>Before PrometheusPCB he worked in the lab at Stalker Radar, an RF company, hands-on with exactly the class of high-frequency hardware ceramic boards are made for. On his own he's launched live products people actually use and validated a consumer startup with real customers in the field. The throughline: build the real thing, and finish it. On this machine he owns the electronics, the firmware, and the system integration.</p>
-          <a class="flink" href="https://www.linkedin.com/in/aaron-wang-265423220/">Aaron on LinkedIn &rarr;</a>
-        </article>
-        <article class="founder-card reveal">
-          <img class="headshot" src="assets/founder-julian.jpg" alt="Julian Stoller" loading="lazy" onerror="this.style.display='none'">
-          <span class="role">Co-founder · Mechanical Engineering</span>
-          <h3>Julian Stoller</h3>
-          <p>A fresh Cornell mechanical-engineering graduate, with the additive-manufacturing depth the machine is built on. He took first place among 81 entries in SME's 2025 Digital Manufacturing Contest with a rapidly deployable concentrated-solar and water-distillation plant designed for additive manufacturing (patents pending), and won the hardware track at Cornell's Big Red Hacks with a parametric-CAD design.</p>
-          <p>He's also led teams that build hard physical things: mechanical lead, then full team lead, of Cornell's autonomous bicycle project, and a research assistant in the Architectural Robotics Lab. On this machine he owns deposition and process: how a paste becomes a part.</p>
-          <a class="flink" href="https://www.linkedin.com/in/julian-stoller-394a16166/">Julian on LinkedIn &rarr;</a>
+          <div class="fbody">
+            <span class="role">Founder · Electrical + Mechanical</span>
+            <h3>Aaron Wang</h3>
+            <p>Electrical systems at Texas A&amp;M, then a transfer to Texas Tech for mechanical engineering: training that deliberately spans both halves of a machine that's equal parts electronics and precision motion. The seam this machine lives on runs right through my degree plan.</p>
+            <p>Before PrometheusPCB I worked in the lab at Stalker Radar, an RF company, hands-on with exactly the class of high-frequency hardware ceramic boards are made for. On my own I've launched live products people actually use and validated a consumer startup with real customers in the field. The throughline: build the real thing, and finish it. On this machine I own the electronics, the firmware, the system integration — and, since July, deposition and process too.</p>
+            <a class="flink" href="https://www.linkedin.com/in/aaron-wang-265423220/">Aaron on LinkedIn &rarr;</a>
+          </div>
         </article>
       </div>
       <div class="body reveal" style="margin-top:34px">
-        <p>We met through Y Combinator's Co-Founder Matching early this summer, started building together almost immediately, and made it official in July. A month in, the <a href="/log" style="color:var(--copper-bright)">build log</a> shows the pace: a supplier signed, custom silver in manufacture, a motion platform assembled on the bench, first fired parts measured. None of it would have moved this fast with one pair of hands. That's the point of the pairing.</p>
+        <p>PrometheusPCB ran as a two-person company for part of the summer; my co-founder <strong>Julian Stoller</strong> left at the end of July, and the deposition and process scope came back to me. That change is written up in the <a href="/log" style="color:var(--copper-bright)">build log</a> along with everything else, because a log that only records the good weeks isn't worth keeping. What the log also shows is that the pace held: a supplier signed, custom silver in manufacture, a motion platform assembled on the bench, first fired parts measured with calipers.</p>
       </div>
     </div>
   </section>
@@ -224,8 +227,8 @@
         <h2>Early, and looking for the right people.</h2>
       </div>
       <div class="body reveal">
-        <p>PrometheusPCB is early and moving fast. Texas Tech's Innovation Hub and an NSF I-Corps grant gave us the room to chase this now instead of someday. We're past the literature phase, heads-down building our first functional prototype and talking to the hardware teams and labs who'd use it.</p>
-        <p>The seat we're still filling is deep ceramic materials: ceramic processing, paste rheology, constrained sintering. If the co-fire shrinkage problem reads as a challenge rather than a dealbreaker, or you just want a ceramic fab on your bench someday, let's talk.</p>
+        <p>PrometheusPCB is early and moving fast. Texas Tech's Innovation Hub and an NSF I-Corps grant gave me the room to chase this now instead of someday. I'm past the literature phase, heads-down building the first functional prototype and talking to the hardware teams and labs who'd use it.</p>
+        <p>The seat I'm looking to fill is deep ceramic materials: ceramic processing, paste rheology, constrained sintering. If the co-fire shrinkage problem reads as a challenge rather than a dealbreaker, or you just want a ceramic fab on your bench someday, let's talk.</p>
       </div>
       <div class="cta-row reveal">
         <a class="btn btn-solid" href="/#waitlist">Join the beta</a>
@@ -243,7 +246,7 @@
     <div class="foot-right">
       <a href="/technology" class="foot-link">Technology</a>
       <a href="/log" class="foot-link">Log</a>
-      <a href="/founders" class="foot-link">Founders</a>
+      <a href="/founders" class="foot-link">Founder</a>
       <span class="mono">Desktop additive electronics fabrication · est. 2026</span>
     </div>
   </div>
