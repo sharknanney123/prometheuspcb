@@ -99,11 +99,10 @@
   /* solo founder treatment */
   .founders.solo{grid-template-columns:1fr;max-width:840px}
   .founder-card.solo{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
-  .founder-card.solo .headshot{margin-bottom:0;max-width:300px}
+  .founder-card.solo .headshot{margin-bottom:0;height:auto;aspect-ratio:1320/1819;object-fit:contain}
   .founder-card.solo .fbody{display:flex;flex-direction:column;gap:13px}
   @media(min-width:760px){
-    .founder-card.solo{grid-template-columns:236px 1fr;gap:28px}
-    .founder-card.solo .headshot{max-width:none}
+    .founder-card.solo{grid-template-columns:330px 1fr;gap:30px}
   }
 
   /* pull-quote */
@@ -202,7 +201,7 @@
       </div>
       <div class="founders solo">
         <article class="founder-card solo reveal">
-          <img class="headshot" src="assets/founder-aaron.jpg" alt="Aaron Wang, grinning through a brick-built gold picture frame" loading="lazy" onerror="this.style.display='none'">
+          <img class="headshot" src="assets/founder-aaron.jpg" alt="Aaron Wang seated on a patterned tile floor between stone columns at dusk" loading="lazy" onerror="this.style.display='none'">
           <div class="fbody">
             <span class="role">Founder · Electrical + Mechanical</span>
             <h3>Aaron Wang</h3>
